@@ -15,7 +15,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class listeners implements Listener {
-	//判断物品lore是否有"感谢赞助玩家"
+	/*判断物品lore是否有"感谢赞助玩家"或者"无法用于铁砧"
+	 *用于防止粘液科技与Myitems插件的附魔分解
+	 */
 	@EventHandler
 	public void onAnvil(InventoryClickEvent event) {
 	    if (event.getRawSlot() == 2 && event.getWhoClicked() instanceof Player && event.getInventory().getType() == InventoryType.ANVIL) {
@@ -27,14 +29,14 @@ public class listeners implements Listener {
 	    	}
 	    }
 	}
-	//取消盔甲架着火
+	//取消盔甲架着火, 防止地皮的盔甲架被别的玩家破坏, 从而获得装备
 	@EventHandler
 	public void onArmorStand(EntityCombustEvent event) {
 		if (event.getEntity() instanceof ArmorStand) {
 			event.setCancelled(true);
 		}
 	}
-	//进服消息提示
+	//VIP进服消息提示
 	@EventHandler
 	public void onPlayerJoin(PlayerJoinEvent p) {
 		if (p.getPlayer().hasPermission("vipjoin.1")) {
@@ -54,10 +56,5 @@ public class listeners implements Listener {
 			p.sendMessage("§7等待被Him支配吧");
 			e.setCancelled(true);
 		}
-	}
-	//在玩家身边生成怪物
-	@EventHandler
-	public void onRandomSpawn() {
-		
 	}
 }
