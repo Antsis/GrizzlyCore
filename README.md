@@ -1,3 +1,4 @@
 # GrizzlyCore
-一个Minecraft Spigot服务器小插件
-<br>融合了为服务器所需要的功能
+一个Minecraft服务器官网综合解决方案
+使用PHP+Java来实现MC游戏里的信息与网页链接
+
