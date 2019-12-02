@@ -1,0 +1,12 @@
+@charset "utf-8";
+body{
+    margin: 0;
+    padding: 0;
+}
+.filler{
+    height: 76px;
+    width: 100%;
+}
+.text-green{
+    color: rgb(61, 255, 61);
+}
