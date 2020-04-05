@@ -4,11 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Grizzly - 一个MineCraft养老服务器</title>
-    <link rel="stylesheet" href="__CSS__/style.css">
-    <link rel="stylesheet" href="__CSS__/main.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/main.css">
 </head>
 <body>
-    {include file="common/nav" /}
+    
+    <nav class="navbar">
+        <ul>
+            <li><a class="hide" href="index.html"><img class="logo" src="images/logo.jpg"></a></li>
+            <li><a  href="index.html">首页</a></li>
+            <li><a  href="news.html">新闻</a></li>
+            <li><a  href="picture.html">玩家相册</a></li>
+            <li><a  href="about.html">关于我们</a></li>
+            <li><a  href="contact.html">联系我们</a></li>
+            <li><a href="#">登录</a></li>
+        </ul>
+    </nav>
+
     <div class="pop-container">
         <div class="pop-main">
             <div class="tab-control">
@@ -49,7 +61,7 @@
         </div>
     </div>
     <div class="banner">
-        <img src="__IMG__/logo.jpg" alt=""><span>Grizzly</span>
+        <img src="images/logo.jpg" alt=""><span>Grizzly</span>
     </div>
     <div class="content"> 
         <div class="content-main">
@@ -61,11 +73,14 @@
     </div>
 
     <!-- 页脚 -->
-    {include file="common/footer" /}
+    <div class="footer">
+        <p>&copy;Antsis
+        <br>by~WCZ</p>
+    </div>
     
     
     <audio autoplay="autoplay" loop="loop" src="https://m10.music.126.net/20190110000248/93867d15dfb415a03a8ed8059f8fdd5a/ymusic/648f/ce70/fc62/11adf0b6a6b72298b101cbf6e63d6956.mp3"></audio>
-    <script src="__JS__/jquery-3.4.1.min.js"></script>
-    <script src="__JS__/main.js"></script>
+    <script src="js/jquery-3.4.1.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
