@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {include file="common/css"}
+    <title>GrizzlyCraft -- 官网</title>
+</head>
+<body>
+    <!-- nav -->
+    <!-- loging & register  -->
+    {include file="common/nav,common/reglogin"}
+    
+
+
+  <!-- mainText -->
+  <div class="container">
+    <div class="jumbotron my-4">
+        <h1 class="display-4">Hello, world!</h1>
+        <p class="lead">这是一个MC服务官网.</p>
+        <hr class="my-4">
+        <h5>将提供以下功能</h5>
+        <ul>
+            <li>与服务器数据进行同步</li>
+            <li>正版账号验证</li>
+            <li>好友聊天</li>
+            <li>论坛</li>
+        </ul>
+      </div>
+  </div>
+  
+    <!-- footer -->
+    {include file="common/footer,common/js"}
+    <script>
+        $(document).ready(function(){
+            logined()
+            $("#index-page").addClass("active")
+        })
+    </script>
+    
+</body>
+
+</html>
