@@ -10,6 +10,5 @@ class User extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $table = 'web';
     protected $dateFormat = 'U';
 }

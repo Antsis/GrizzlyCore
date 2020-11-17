@@ -153,8 +153,8 @@ class ProfileController extends Controller
 
                 // 裁剪头像并保存
                 $image = Image::open($file);
-                $image->thumb(200, 200, 2)->save('avatars/'. $name. '_200_200', 'jpg');
-                $image->thumb(38, 38, 2)->save('avatars/'. $name. '_38_38', 'jpg');
+                $image->thumb(200, 200, 2)->save('avatars/'. $name. '_200_200.jpg');
+                $image->thumb(38, 38, 2)->save('avatars/'. $name. '_38_38.jpg');
 
 
 

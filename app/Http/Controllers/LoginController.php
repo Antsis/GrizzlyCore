@@ -431,4 +431,30 @@ class LoginController extends Controller
     {
         
     }
+    /**
+     * 检测登录状态
+     *
+     * @return void
+     */
+    public function checkLogined()
+    {
+        if(session()->get('logined')!=null){
+            return response()->json(['error'=>['code'=>1, 'message'=>'Logged in']]);
+        }else{
+            return response()->json(['error'=>['code'=>0, 'message'=>'unlogged']]);
+        }
+    }
+    /**
+     * 退出登录
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function logout(Request $request)
+    {
+        session()->flush();
+        Cookie::queue(Cookie::forget('login_token'));
+        return redirect('/');
+    }
+
 }
