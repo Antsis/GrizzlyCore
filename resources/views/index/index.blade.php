@@ -14,6 +14,8 @@ Grizzly
         <h5>todo</h5>
         <ul>
             <li>权限管理RABC</li>
+            <li>后台页面编写</li>
+            <li>Laravel的邮件发送</li>
         </ul>
         <a class="btn btn-primary btn-lg" href="vscode:" role="button">Just do it</a>
       </div>

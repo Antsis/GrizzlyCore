@@ -16,7 +16,8 @@
 </head>
 <body>
     <!-- nav -->
-    @include('common.nav')
+    @section('nav')
+        @include('common.nav')
 
     @show
     
@@ -27,9 +28,11 @@
     
     @show
     
-    <!-- footer -->
-    @include('common.footer')
 
+    <!-- footer -->
+    @section('footer')
+        @include('common.footer')
+    @show
     
     <script src="{{ asset('static/js/jquery-3.5.1.min.js') }}"></script>
     <script src="{{ asset('static/js/popper.min.js') }}"></script>

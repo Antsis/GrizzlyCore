@@ -1,7 +1,8 @@
 @extends('common.layout')
 
 @section('maintext')
-@include('common.reglogin')
+
+    @include('common.reglogin')
 
 @endsection
 

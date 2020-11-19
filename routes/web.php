@@ -31,6 +31,7 @@ Route::get('contact', function(){
     return view('index.contact');
 });
 
+
 Route::prefix('login')->group(function(){
     Route::post('cookieLogin', [LoginController::class, 'cookieLogin']);
     Route::post('checkCode', [LoginController::class, 'checkCode']);
@@ -54,4 +55,14 @@ Route::middleware('checksession')->prefix('profile')->group(function(){
     Route::post('avatarUpload', [ProfileController::class, 'avatarUpload']);
     Route::post('profileSave', [ProfileController::class, 'profileSave']);
     Route::post('profileContactSave', [ProfileController::class, 'profileContactSave']);
+});
+
+Route::middleware('checksession')->prefix('admin')->group(function(){
+    Route::get('index', function(){
+        return view('admin.index');
+    });
+    Route::get('user', []);
+    Route::get('user', function(){
+        return view('admin.user');
+    });
 });

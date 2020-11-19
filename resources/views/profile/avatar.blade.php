@@ -3,6 +3,7 @@
 @section('title')
 修改头像
 @endsection
+
 @section('profile-content')
 <div class="container bg-light shadow-sm">
         <div class="row-cols-1 py-2">
