@@ -11,7 +11,7 @@
 @section('maintext')
     <div class="container-xl">
         <div class="row my-4">
-            <div class="col-2">
+            <div class="col">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item"><a href="{{url('/')}}">
@@ -27,7 +27,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col">
+            <div class="col-2">
                 <ul class="list-group text-center">
                     <li class="list-group-item text-black-50">设置</li>
                     <li class="list-group-item {{ Request::getPathInfo() == '/profile/avatar' ? 'active text-light' : '' }}"><a class="{{ Request::getPathInfo() == '/profile/avatar' ? 'text-light' : '' }}" href="{{url('profile/avatar')}}">修改头像</a></li>

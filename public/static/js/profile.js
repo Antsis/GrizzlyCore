@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(function(){
     var nameFlag=1;
     var signatureFlag=1;
     $("#name").change(function(){

@@ -36,8 +36,8 @@
                             <div class="invalid-feedback"></div>
                         </div>
                         <div class="form-group form-check">
-                            <input type="checkbox" class="form-check-input" id="login_state" >
-                            <label class="form-check-label" for="login_state">7天内自动登录</label>
+                            <input type="checkbox" class="form-check-input" id="login_state" checked>
+                            <label class="form-check-label" for="login_state">保持登录状态</label>
                         </div>
                         <div class="form-group">
                             <small class="pr-2">使用其他账号登录:</small><a class="btn btn-primary btn-sm oauth-login" href="#" data-login-url="{{url('login/qqLogin')}}" ><img class="pr-1" src="{{asset('static/images/icons/Connect_logo_1.png')}}">使用QQ登录</a>

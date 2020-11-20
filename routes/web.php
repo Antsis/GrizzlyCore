@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
@@ -61,8 +62,7 @@ Route::middleware('checksession')->prefix('admin')->group(function(){
     Route::get('index', function(){
         return view('admin.index');
     });
-    Route::get('user', []);
-    Route::get('user', function(){
-        return view('admin.user');
-    });
+    Route::any('user', [AdminController::class, 'user']);
+    Route::any('role', [AdminController::class, 'role']);
+    Route::get('access', [AdminController::class, 'access']);
 });

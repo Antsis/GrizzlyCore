@@ -20,30 +20,31 @@
     </nav>
 @endsection
 
-@section('footer')
-
-@endsection
 
 @section('maintext')
     <div class="container-xl my-2">
         <div class="row">
             <div class="col-2">
             <div class="list-group">
-            <button type="button" disabled  class="list-group-item list-group-item-action active">
-                About
-            </button>
-            <button type="button" class="list-group-item list-group-item-action" data-url="{{url(">用户管理</button>
-            <button type="button" class="list-group-item list-group-item-action" >角色管理</button>
-            <button type="button" class="list-group-item list-group-item-action">权限管理</button>
+            <button type="button" class="list-group-item list-group-item-action admin-btn-a {{ Request::getPathInfo() == '/admin/index' ? 'active text-light' : '' }}" data-url="{{url('admin/index')}}">首页</button>
+            <button type="button" class="list-group-item list-group-item-action admin-btn-a {{ Request::getPathInfo() == '/admin/user' ? 'active text-light' : '' }}" data-url="{{url('admin/user')}}">用户管理</button>
+            <button type="button" class="list-group-item list-group-item-action admin-btn-a {{ Request::getPathInfo() == '/admin/role' ? 'active text-light' : '' }}" data-url="{{url('admin/role')}}">角色管理</button>
+            <button type="button" class="list-group-item list-group-item-action admin-btn-a {{ Request::getPathInfo() == '/admin/access' ? 'active text-light' : '' }}" data-url="{{url('admin/access')}}">权限管理</button>
             </div>
             </div>
             <div class="col-10">
                 @section('childtext')
-                    <h1>Grizzly网站的后台管理</h1>
+                    
                 @show
             </div>
         </div>
     </div>
    
-    
+@endsection
+
+@section('footer')
+@endsection
+
+@section('js')
+    <script src="{{ asset('static/js/admin.js') }}"></script>
 @endsection
