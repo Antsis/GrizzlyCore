@@ -47,4 +47,9 @@
 
 @section('js')
     <script src="{{ asset('static/js/admin.js') }}"></script>
+    <script src="{{ asset('static/js/admin/user.js') }}"></script>
+    <script src="{{ asset('static/js/admin/role.js') }}"></script>
+    <script src="{{ asset('static/js/admin/index.js') }}"></script>
+    <script src="{{ asset('static/js/admin/access.js') }}"></script>
+
 @endsection

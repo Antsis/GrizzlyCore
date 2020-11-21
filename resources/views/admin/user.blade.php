@@ -45,7 +45,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editUserModal">编辑用户ID: <span id="user-id"></span></h5>
+                <h5 class="modal-title">编辑用户ID: <span id="user-id"></span></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -93,7 +93,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editUserRoleModal">编辑用户ID: <span id="user-id-2"></span></h5>
+                <h5 class="modal-title">编辑用户ID: <span id="user-id-2"></span></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -103,7 +103,7 @@
                 <div class="form-group">
                     <label for="role-select">选择角色</label>
                     <select multiple class="form-control" id="role-select"">
-                        <option value="" selected>请选择</option>
+                        <option value="">请选择</option>
                     @foreach ($roles as $role)
                         <option value="{{ $role->id }}">{{ $role->name }}</option>
                     @endforeach

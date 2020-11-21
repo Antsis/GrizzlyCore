@@ -11,5 +11,4 @@ class Access extends Model
     use HasFactory;
     use SoftDeletes;
     protected $dateFormat = 'U';
-    protected $table = 'access';
 }

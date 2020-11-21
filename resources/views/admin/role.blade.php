@@ -27,7 +27,7 @@
                             <td>
                                 <a href="#" class="role-delete" data-url="{{url('admin/role')}}" data-id="{{ $role->id }}">删除</a> 
                                 <a href="#editRoleModal" data-toggle="modal" data-target="#editRoleModal" data-id="{{ $role->id }}" data-name="{{ $role->name }}">编辑</a>
-                                <a href="#">设置权限</a>
+                                <a href="#editRoleAccessModal" class="get-role-id"  data-toggle="modal" data-target="#editRoleAccessModal" data-id="{{ $role->id }}" data-url="{{url('admin/role')}}">设置权限</a>
                             </td>
                         </tr>
                     @endforeach
@@ -44,7 +44,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addRoleModal">新的角色</h5>
+                <h5 class="modal-title" >新的角色</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -71,7 +71,7 @@
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editRoleModal">编辑角色ID: <span id="role-id"></span></h5>
+                <h5 class="modal-title" >编辑角色ID: <span id="role-id"></span></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
                 </button>
@@ -88,6 +88,53 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
                 <button id="role-edit" type="button" class="btn btn-primary" data-url="{{url('admin/role')}}">提交</button>
+            </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 设置权限模态框 -->
+    <div class="modal fade" id="editRoleAccessModal" tabindex="-1" role="dialog" aria-labelledby="editRoleAccessModal" aria-hidden="true">
+            
+        <!-- Then put toasts within -->
+        <div class="toast position-fixed" style="top: 45px; right: 0; min-width: 348px"  role="alert" aria-live="assertive" aria-atomic="true" data-delay="3500">
+            <div class="toast-header">
+                <img src="{{asset('static/images/notify/notify.jpg')}}" class="rounded mr-2" alt="avatar">
+                <strong class="mr-auto">通知</strong>
+                <small class="text-muted">刚刚</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                你似乎什么都没有改变
+            </div>
+        </div>
+
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">编辑角色ID: <span id="role-id-2"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                <div class="form-group">
+                    <label for="access-select">选择权限</label>
+                    <select multiple class="form-control" id="access-select"">
+                        <option value="">请选择</option>
+                    @foreach ($access_list as $access)
+                        <option value="{{ $access->id }}">{{ $access->name }}</option>
+                    @endforeach
+                    </select>
+                </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">关闭</button>
+                <button id="role-access-edit" type="button" class="btn btn-primary" data-url="{{url('admin/role')}}">提交</button>
             </div>
             </div>
         </div>

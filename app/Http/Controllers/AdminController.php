@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Access;
 use App\Models\Role;
+use App\Models\RoleAccess;
 use App\Models\User;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 
+use function PHPUnit\Framework\returnSelf;
 use function Ramsey\Uuid\v1;
 
 /**
@@ -154,9 +156,61 @@ class AdminController extends Controller
                     return response()->jsoin(['error' => ['code' => '001', 'message' => 'Database is error']]);
                 }
                 break;
+            case 'PATCH':
+                if(!$request->has('role-id')){
+                    return response()->json(['error'=>['code' => '001', 'message' => 'role-id is null']]);
+                }
+                $role_id = $request->input('role-id');
+                // 找出用户所有的角色, 
+                $server_access = RoleAccess::where('role_id', $role_id)->get();
+                // $user_roles = $user_roles->modelKeys();
+                //判断角色数组中的id是否和传递过来数组中的id的是否存在
+                //如果存在则不变, 传递过来的id如果角色未拥有则添加
+                //角色id如果拥有传递过来的id不相同则删除
+                //与用户选择角色同理
+                $client_access = $request->input('role-access');
+                //特殊判断
+                // if($client_roles[0]==""&&count($client_roles)==1){
+                //     return response()->json(['notify'=>['code' => '1', 'message' => 'Nothing is updated']]);
+                // }
+                // S in C 删除操作
+                foreach($server_access as $_list){
+                    if(!in_array($_list->access_id, $client_access)){
+                        $_list->delete();
+                    }
+                }
+                // C in S 添加操作
+                foreach($client_access as $_list){
+                    if($_list==null){
+                        continue;
+                    }else{
+                        if(!in_array($_list, $server_access->modelKeys())){
+                            $role_access = new RoleAccess;
+                            $role_access->role_id = $role_id;
+                            $role_access->access_id =  $_list;
+                            if(!$role_access->save()){
+                                return response()->json(['error'=>['code' => '002', 'message' => 'Database is error']]);
+                            }
+                        }
+                    }
+                }
+                return response()->json(['success'=>['code' => '101', 'message' => 'role access is updated']]);
+                break;
             case 'GET':
                 $roles = Role::paginate(5);
-                return view('admin.role', ['roles' => $roles]);
+                $access_list = Access::all();
+                if($request->has('id')){
+                    $role_access = RoleAccess::where('role_id', $request->input('id'))->get();
+                    $arr = [];
+                    foreach($role_access as $_list){
+                        $arr[] = $_list->access_id;
+                    }
+                    return response()->json($arr);
+                }
+                return view('admin.role', [
+                    'roles' => $roles,
+                    'access_list' => $access_list
+                ]);
                 break;
             default:
                 return response()->json(['error'=>['code' => '001', 'message' => '']]);
@@ -171,24 +225,31 @@ class AdminController extends Controller
     {
         switch($request->method()){
             case 'POST':
-                if(!$request->has('role-name')){
-                    return response()->json(['error' => ['code' => '001', 'message' => 'form role is null']]);
+                if(!$request->has('access-name')){
+                    return response()->json(['error' => ['code' => '001', 'message' => 'access name is null']]);
                 }
-                $role = new Role;
-                $role->name = $request->input('role-name');
-                if($role->save()){
+                $urls = explode("\n", $request->input('urls'));
+                if(!$urls){
+                    return response()->json(['error' => ['code' => '002', 'message' => 'Urls are not compliant']]);
+                }
+                $access = new Access();
+                $access->name = $request->input('access-name');
+                $access->urls = json_encode($urls);
+                if($access->save()){
                     return response()->json(['success' => ['code' => '101', 'message' => 'insert success!']]);
                 }else{
-                    return response()->jsoin(['error' => ['code' => '002', 'message' => 'Database is error']]);
+                    return response()->jsoin(['error' => ['code' => '003', 'message' => 'Database is error']]);
                 }
                 break;
             case 'PUT':
-                if(!$request->has('role-name')&&!$request->has('role-id')){
-                    return response()->json(['error' => ['code' => '001', 'message' => 'form role is null']]);
+                if(!$request->has('access-name')&&!$request->has('access-id')){
+                    return response()->json(['error' => ['code' => '001', 'message' => 'access name or id is null']]);
                 }
-                $role = Role::find((int)$request->input('role-id'));
-                $role->name = $request->input('role-name');
-                if($role->save()){
+                $urls = explode("\n", $request->input('urls'));
+                $access = Access::find((int)$request->input('access-id'));
+                $access->name = $request->input('access-name');
+                $access->urls = json_encode($urls);
+                if($access->save()){
                     return response()->json(['success' => ['code' => '101', 'message' => 'insert success!']]);
                 }else{
                     return response()->jsoin(['error' => ['code' => '002', 'message' => 'Database is error']]);
@@ -196,25 +257,21 @@ class AdminController extends Controller
                 break;
             case 'DELETE':
                 if(!$request->has('access-id')){
-                    return response()->json(['error' => ['code' => '001', 'message' => 'role-id is null']]);
+                    return response()->json(['error' => ['code' => '001', 'message' => 'access-id is null']]);
                 }
-                $role = Role::find((int)$request->input('role-id'));
-                if($role->delete()){
-                    return response()->json(['success' => ['code' => '101', 'message' => 'role success delete!']]);
+                $access = Access::find((int)$request->input('access-id'));
+                if($access->delete()){
+                    return response()->json(['success' => ['code' => '101', 'message' => 'access success delete!']]);
                 }else{
                     return response()->jsoin(['error' => ['code' => '001', 'message' => 'Database is error']]);
                 }
                 break;
             case 'GET':
-                $access = Access::paginate(5);
-                return view('admin.access', ['access' => $access]);
+                $access_list = Access::paginate(5);
+                return view('admin.access', ['access_list' => $access_list,]);
                 break;
             default:
                 return response()->json(['error'=>['code' => '001', 'message' => '']]);
         }
     }
-
-
-    
-    
 }
