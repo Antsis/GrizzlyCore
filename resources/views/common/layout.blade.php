@@ -10,8 +10,8 @@
     @show
     <link rel="stylesheet" href="{{ asset('static/css/font-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('static/css/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('static/css/bootstrap.css') }}">
-    
+    <!-- <link rel="stylesheet" href="{{ asset('static/css/bootstrap.css') }}"> -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.css" rel="stylesheet">
     <title>@yield('title', 'Laravel-demo')</title>
 </head>
 <body>

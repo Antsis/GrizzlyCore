@@ -64,5 +64,5 @@ Route::middleware('checksession')->prefix('admin')->group(function(){
     });
     Route::any('user', [AdminController::class, 'user']);
     Route::any('role', [AdminController::class, 'role']);
-    Route::get('access', [AdminController::class, 'access']);
+    Route::any('access', [AdminController::class, 'access']);
 });

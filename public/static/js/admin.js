@@ -301,4 +301,81 @@ $(function(){
         })
     })
 
+    // User role select
+    $(".get-user-id").on("click", function(){
+
+        console.log(
+            $('#role-select').children()
+            
+        )
+
+        $.ajax({
+            type: 'GET',
+            url: $(this).data('url'),
+            data: {
+                "id" : $(this).data('id'),
+            },
+            success: data =>{
+                
+            },
+            error: ()=>{
+
+            }
+        })
+    })
+
+    $("#editUserRoleModal").on('show.bs.modal', function(event){
+        $(this).find('#user-id-2').text($(event.relatedTarget).data('id'))
+    })
+    $("#user-role-edit").click(function(){
+        $.ajax({
+            type: "POST",
+            url: $(this).data("url"),
+            data: {
+                "user-id" : $('#user-id-2').text(),
+                "user-roles" : $('#role-select').val(),
+            },
+            success: data => {
+                if(data.success){
+                    $("#editUserRoleModal").modal("hide")
+                    $("body").append(`
+                        <div class="alert alert-success alert-dismissible fade show fixed-top text-center" role="alert">
+                        <strong>修改成功!</strong>
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="window.location.reload()"
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                        </div>
+                    `)
+                    // setTimeout(() => {
+                    //     window.location.reload()
+                    // }, 1000);
+                }else if(data.notify){
+                    $(".toast").toast('show')
+                }else{
+                    $("body").append(`
+                    <div class="alert alert-danger alert-dismissible fade show fixed-top text-center" role="alert">
+                        <strong>服务器错误!</strong>请联系管理员
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                  `);
+                }
+            },
+            error: ()=>{
+                $("body").append(`
+                    <div class="alert alert-danger alert-dismissible fade show fixed-top text-center" role="alert">
+                        <strong>服务器错误!</strong>请联系管理员
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                `);
+            }
+        })
+    })
+
+    
+
 })
+
