@@ -11,16 +11,16 @@ class AccountSecurity extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $order;
+    public $data;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($order)
+    public function __construct($data)
     {
         //
-        $this->order = $order;
+        $this->data = $data;
     }
 
     /**
@@ -30,6 +30,9 @@ class AccountSecurity extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.account.security');
+        return $this->from('notice@wcz.one', 'GrizzlyCraft')
+                    ->subject('GrizzlyCraft---邮箱验证码')
+                    ->replyTo('notice@wcz.one')
+                    ->view('emails.account.security');
     }
 }

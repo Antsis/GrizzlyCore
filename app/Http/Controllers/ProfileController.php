@@ -176,9 +176,5 @@ class ProfileController extends Controller
         }
         
     }
-
-    public function test(Type $var = test)
-    {
-        # code...
-    }
+    
 }

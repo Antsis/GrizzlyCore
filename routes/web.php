@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
+use Tests\Unit\MainTest;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +32,10 @@ Route::get('about', function(){
 Route::get('contact', function(){
     return view('index.contact');
 });
+
+Route::any('test', [MainTest::class, 'testMain']);
+// Route::any('test', [TestController::class, 'Main']);
+
 
 
 Route::prefix('login')->group(function(){

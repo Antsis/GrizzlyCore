@@ -13,8 +13,14 @@ Grizzly
         <hr class="my-4">
         <h5>todo</h5>
         <ul>
-            <li>Laravel的邮件发送</li>
             <li>账号安全验证</li>
+            <li>论坛功能</li>
+            <li>聊天系统</li>
+            <li>电商功能</li>
+            <li>Redis</li>
+            <li>队列</li>
+            <li>优化登录与个人资料后台</li>
+            <li>打包工具, 优化css与js</li>
         </ul>
         <a class="btn btn-primary btn-lg" href="vscode:" role="button">Just do it</a>
       </div>
