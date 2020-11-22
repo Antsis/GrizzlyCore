@@ -15,6 +15,7 @@
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
+        "phpmailer/phpmailer": "^6.1",
         "socialiteproviders/qq": "^4.0"
     },
     "require-dev": {
