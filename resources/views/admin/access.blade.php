@@ -14,7 +14,8 @@
             <table class="table table-striped text-center">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">ID</th>
+                        <th scope="col">#</th>
+                        <!-- <th scope="col">ID</th> -->
                         <th scope="col">权限名</th>
                         <th scope="col">Urls</th>
                         <th scope="col">操作</th>
@@ -23,7 +24,8 @@
                 <tbody>
                     @foreach ($access_list as $access)
                         <tr>
-                            <th scope="row" class="align-middle">{{ $access->id}}</th>
+                            <th scope="row">{{ ($access_list->currentPage() - 1) * $access_list->perPage() + $loop->iteration }}</th>
+                            {{-- <th class="align-middle">{{ $access->id}}</th> --}}
                             <td class="align-middle">{{ $access->name }}</td>
                             <td class="align-middle">{!! implode("<br>", json_decode($access->urls)) !!}</td>
                             <td class="align-middle">

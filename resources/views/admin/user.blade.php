@@ -13,7 +13,8 @@
             <table class="table table-striped text-center">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">ID</th>
+                        <th scope="row">#</th>
+                        <!-- <th scope="col">ID</th> -->
                         <th scope="col">用户名</th>
                         <th scope="col">邮箱</th>
                         <th scope="col">操作</th>
@@ -22,7 +23,8 @@
                 <tbody>
                     @foreach ($users as $user)
                         <tr>
-                            <th scope="row">{{ $user->id}}</th>
+                            <th scope="row">{{ ($users->currentPage() - 1) * $users->perPage() + $loop->iteration }}</th>
+                            {{--  <th scope="row">{{ $user->id}}</th> --}}
                             <td>{{ $user->username }}</td>
                             <td>{{ $user->email }}</td>
                             <td>

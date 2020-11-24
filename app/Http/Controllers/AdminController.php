@@ -209,7 +209,7 @@ class AdminController extends Controller
                 }
                 return view('admin.role', [
                     'roles' => $roles,
-                    'access_list' => $access_list
+                    'access_list' => $access_list,
                 ]);
                 break;
             default:
@@ -268,7 +268,9 @@ class AdminController extends Controller
                 break;
             case 'GET':
                 $access_list = Access::paginate(5);
-                return view('admin.access', ['access_list' => $access_list,]);
+                return view('admin.access', [
+                    'access_list' => $access_list,
+                ]);
                 break;
             default:
                 return response()->json(['error'=>['code' => '001', 'message' => '']]);

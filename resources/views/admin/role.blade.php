@@ -14,7 +14,8 @@
             <table class="table table-striped text-center">
                 <thead class="thead-dark">
                     <tr>
-                        <th scope="col">ID</th>
+                        <th scope="row">#</th>
+                        <!-- <th scope="col">ID</th> -->
                         <th scope="col">角色名</th>
                         <th scope="col">操作</th>
                     </tr>
@@ -22,7 +23,8 @@
                 <tbody>
                     @foreach ($roles as $role)
                         <tr>
-                            <th scope="row">{{ $role->id}}</th>
+                            <th scope="row">{{ ($roles->currentPage() - 1) * $roles->perPage() + $loop->iteration }}</th>
+                            {{-- <th scope="row"></th> --}}
                             <td>{{ $role->name }}</td>
                             <td>
                                 <a href="#" class="role-delete" data-url="{{url('admin/role')}}" data-id="{{ $role->id }}">删除</a> 
