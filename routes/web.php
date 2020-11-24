@@ -63,7 +63,7 @@ Route::middleware('checksession')->prefix('profile')->group(function(){
     Route::post('profileContactSave', [ProfileController::class, 'profileContactSave']);
 });
 
-Route::middleware('checksession')->prefix('admin')->group(function(){
+Route::middleware(['checksession', 'checkaccess'])->prefix('admin')->group(function(){
     Route::get('index', function(){
         return view('admin.index');
     });

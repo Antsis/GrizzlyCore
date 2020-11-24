@@ -16,10 +16,10 @@ class CheckSession
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!session()->has('logined')){
-            return redirect('/');
-        }else{
+        if(session()->has('logined')){
             return $next($request);
+        }else{
+            return redirect('/');
         }
 
     }

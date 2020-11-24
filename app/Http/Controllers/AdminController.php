@@ -31,8 +31,8 @@ class AdminController extends Controller
                 if($request->has('id')){
                     $user_roles = UserRole::where('uid', $request->input('id'))->get();
                     $arr = [];
-                    foreach($user_roles as $_list){
-                        $arr[] = $_list->role_id;
+                    foreach($user_roles as $item){
+                        $arr[] = $item->role_id;
                     }
                     return response()->json($arr);
                 }
@@ -84,20 +84,20 @@ class AdminController extends Controller
                 //     return response()->json(['notify'=>['code' => '1', 'message' => 'Nothing is updated']]);
                 // }
                 // S in C 删除操作
-                foreach($server_roles as $_list){
-                    if(!in_array($_list->role_id, $client_roles)){
-                        $_list->delete();
+                foreach($server_roles as $item){
+                    if(!in_array($item->role_id, $client_roles)){
+                        $item->delete();
                     }
                 }
                 // C in S 添加操作
-                foreach($client_roles as $_list){
-                    if($_list==null){
+                foreach($client_roles as $item){
+                    if($item==null){
                         continue;
                     }else{
-                        if(!in_array($_list, $server_roles->modelKeys())){
+                        if(!in_array($item, Common::getArray($server_roles, 'role_id'))){
                             $user_role = new UserRole;
                             $user_role->uid = $uid;
-                            $user_role->role_id =  $_list;
+                            $user_role->role_id =  $item;
                             if(!$user_role->save()){
                                 return response()->json(['error'=>['code' => '002', 'message' => 'Database is error']]);
                             }
@@ -161,7 +161,7 @@ class AdminController extends Controller
                     return response()->json(['error'=>['code' => '001', 'message' => 'role-id is null']]);
                 }
                 $role_id = $request->input('role-id');
-                // 找出用户所有的角色, 
+                // 找出角色所有的权限, 
                 $server_access = RoleAccess::where('role_id', $role_id)->get();
                 // $user_roles = $user_roles->modelKeys();
                 //判断角色数组中的id是否和传递过来数组中的id的是否存在
@@ -174,20 +174,20 @@ class AdminController extends Controller
                 //     return response()->json(['notify'=>['code' => '1', 'message' => 'Nothing is updated']]);
                 // }
                 // S in C 删除操作
-                foreach($server_access as $_list){
-                    if(!in_array($_list->access_id, $client_access)){
-                        $_list->delete();
+                foreach($server_access as $itme){
+                    if(!in_array($itme->access_id, $client_access)){
+                        $itme->delete();
                     }
                 }
                 // C in S 添加操作
-                foreach($client_access as $_list){
-                    if($_list==null){
+                foreach($client_access as $item){
+                    if($item==null){
                         continue;
                     }else{
-                        if(!in_array($_list, $server_access->modelKeys())){
+                        if(!in_array($item, Common::getArray($server_access, 'access_id'))){
                             $role_access = new RoleAccess;
                             $role_access->role_id = $role_id;
-                            $role_access->access_id =  $_list;
+                            $role_access->access_id =  $item;
                             if(!$role_access->save()){
                                 return response()->json(['error'=>['code' => '002', 'message' => 'Database is error']]);
                             }
@@ -202,8 +202,8 @@ class AdminController extends Controller
                 if($request->has('id')){
                     $role_access = RoleAccess::where('role_id', $request->input('id'))->get();
                     $arr = [];
-                    foreach($role_access as $_list){
-                        $arr[] = $_list->access_id;
+                    foreach($role_access as $item){
+                        $arr[] = $item->access_id;
                     }
                     return response()->json($arr);
                 }

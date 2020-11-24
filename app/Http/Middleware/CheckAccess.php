@@ -1,0 +1,83 @@
+<?php
+
+namespace App\Http\Middleware;
+
+use App\Http\Controllers\Common;
+use App\Models\Access;
+use App\Models\RoleAccess;
+use App\Models\UserRole;
+use Closure;
+use Illuminate\Http\Request;
+
+class CheckAccess
+{
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle(Request $request, Closure $next)
+    {
+
+        /**
+         * 检查用户的权限
+         * 通过用户检索出所属角色
+         * 通过角色检索出所有权限
+         * 再进行判断
+         */
+        if(session()->has('logined')){
+            $uid = session()->get('logined')['id'];
+            // 判断管理员
+            // if($uid==12){
+            //     return $next($request);
+            // }
+            $role_ids = Common::getArray(UserRole::where('uid', $uid)->get(), 'role_id');
+            if(!$role_ids){
+                return redirect('/');
+            }
+            foreach ($role_ids as $item) {
+                $access = Common::getArray(RoleAccess::where('role_id', $item)->get(), 'access_id');
+            }
+            if(!$access){
+                return redirect('/');
+            }
+            foreach($access as $item){
+                $urls[] = Access::where('id', $item)->value('urls');
+            }
+            $array = [];
+            foreach ($urls as $url) {
+                $tmp = json_decode($url);
+                if(is_null($tmp)){
+                    continue;
+                }else{
+                    $array = array_merge($array, $tmp);
+                }
+            }
+
+            // if(in_array('/'.$request->path(), $array)){
+            //     return $next($request);
+            // }else{
+            //     return redirect('/');
+            // }
+            // 使用正则表达式, 添加权限更为方便
+            $curl = '/'.$request->path();
+            foreach($array as $item){
+                $str =  str_replace(['/','*'], ['\/', '.*'], $item);
+                if(preg_match('/'.$str.'/', $curl)){
+                    $flag = true;
+                }else{
+                    $flag = false;
+                }
+            }
+            if($flag){
+                return $next($request);
+            }else{
+                return redirect('/');
+            }
+        }else{
+            return redirect('/');
+        }
+    }
+}

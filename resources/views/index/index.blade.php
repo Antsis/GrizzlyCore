@@ -21,6 +21,9 @@ Grizzly
             <li>队列</li>
             <li>优化登录与个人资料后台</li>
             <li>打包工具, 优化css与js</li>
+            <li>log相关</li>
+
+            <li>角色会重复提交</li>
         </ul>
         <a class="btn btn-primary btn-lg" href="vscode:" role="button">Just do it</a>
       </div>

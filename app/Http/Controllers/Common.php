@@ -17,5 +17,24 @@ class Common
     {
         return ($strup)?strtoupper(bin2hex(random_bytes($length))):bin2hex(random_bytes($length));
     }
+
+    /**
+     * 转换模型的值为数组
+     *
+     * @param Object $model | 一个模型
+     * @param String $name | 模型的属性字段
+     * @return Array 返回一个数组
+     */
+    static public function getArray(Object $model, String $str)
+    {
+        $array = [];
+
+        foreach($model as $_list){
+            $array[] = $_list->$str;
+        }
+        return $array;
+        
+        
+    }
     
 }
