@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use App\Http\Controllers\Common;
 use App\Models\Access;
+use App\Models\AccessLog;
 use App\Models\RoleAccess;
 use App\Models\UserRole;
 use Closure;
@@ -72,6 +73,15 @@ class CheckAccess
                 }
             }
             if($flag){
+                // 日志记录
+                $log = new AccessLog();
+                $log->uid = $uid;
+                $log->target_url = $request->fullUrl();
+                $log->query_type = $request->method();
+                $log->ip = $request->ip();
+                $log->ua = $request->server('HTTP_USER_AGENT');
+                $log->created_at = time();
+                $log->save();
                 return $next($request);
             }else{
                 return redirect('/');
