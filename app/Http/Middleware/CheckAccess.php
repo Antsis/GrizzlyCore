@@ -77,7 +77,7 @@ class CheckAccess
                 $log = new AccessLog();
                 $log->uid = $uid;
                 $log->target_url = $request->fullUrl();
-                $log->query_type = $request->method();
+                $log->http_type = $request->method();
                 $log->ip = $request->ip();
                 $log->ua = $request->server('HTTP_USER_AGENT');
                 $log->created_at = time();
