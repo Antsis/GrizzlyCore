@@ -36,13 +36,13 @@ class CheckAccess
             // }
             $role_ids = Common::getArray(UserRole::where('uid', $uid)->get(), 'role_id');
             if(!$role_ids){
-                return redirect('/');
+                return abort(403, '你没有权限!');
             }
             foreach ($role_ids as $item) {
                 $access = Common::getArray(RoleAccess::where('role_id', $item)->get(), 'access_id');
             }
             if(!$access){
-                return redirect('/');
+                return abort(403, '你没有权限!');
             }
             foreach($access as $item){
                 $urls[] = Access::where('id', $item)->value('urls');
@@ -84,10 +84,10 @@ class CheckAccess
                 $log->save();
                 return $next($request);
             }else{
-                return redirect('/');
+                return abort(403, '你没有权限!');
             }
         }else{
-            return redirect('/');
+            return abort(403, '你没有权限!');
         }
     }
 }
