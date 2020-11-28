@@ -2,7 +2,7 @@
 
 @section('maintext')
 
-    @include('common.reglogin')
+    @include('common._reglogin')
 
 @endsection
 

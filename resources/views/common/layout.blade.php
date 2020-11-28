@@ -14,7 +14,7 @@
 <body>
     <!-- nav -->
     @section('nav')
-        @include('common.nav')
+        @include('common._nav')
 
     @show
     
@@ -28,7 +28,7 @@
 
     <!-- footer -->
     @section('footer')
-        @include('common.footer')
+        @include('common._footer')
     @show
     <script src="{{ mix('js/app.js') }}"></script>
     @section('js')
