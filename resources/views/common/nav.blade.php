@@ -20,7 +20,7 @@
                 <a class="nav-link" href="{{ url('about') }}">关于</a>
             </li>
         </ul>
-        <div class="text-center">
+        <div class="text-center" id="login-btn-parent" data-url="{{url('login/cookieLogin')}}">
             @if (session()->has('logined'))
                 <button id="login-btn" class="btn btn-outline-success my-2 my-sm-0 p-0" type="button" onclick="window.location.href='{{url('profile/profile')}}'">
                     <img style="max-width:38px;height:auto" src="{{ asset(session()->get('logined')['avatar_url']. '_38_38.jpg')}}">

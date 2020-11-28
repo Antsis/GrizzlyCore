@@ -7,5 +7,5 @@
 @endsection
 
 @section('js')
-<script src="{{asset('static/js/reglogin.js') }}"></script>
+<!-- <script src="{{asset('static/js/reglogin.js') }}"></script> -->
 @endsection

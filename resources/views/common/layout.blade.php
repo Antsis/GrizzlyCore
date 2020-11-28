@@ -8,10 +8,7 @@
     @section('meta')
 
     @show
-    <link rel="stylesheet" href="{{ asset('static/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('static/css/style.css') }}">
-    <!-- <link rel="stylesheet" href="{{ asset('static/css/bootstrap.css') }}"> -->
-    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
     <title>@yield('title', 'Laravel-demo')</title>
 </head>
 <body>
@@ -33,31 +30,9 @@
     @section('footer')
         @include('common.footer')
     @show
-    
-    <script src="{{ asset('static/js/jquery-3.5.1.min.js') }}"></script>
-    <script src="{{ asset('static/js/popper.min.js') }}"></script>
-    <script src="{{ asset('static/js/bootstrap.js') }}"></script>
+    <script src="{{ mix('js/app.js') }}"></script>
     @section('js')
 
     @show
-    <script>
-            $(document).ready(function(){
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                })
-                $.ajax({
-                    type: "POST",
-                    url: "{{url('login/cookieLogin')}}",
-                    success: data=>{
-                        if(data.success){
-                            $('#login-btn').attr('onclick', "window.location.href='"+$("#login-btn").attr("data-url")+"'").removeAttr("data-toggle").html("<img style='max-width:38px;height:auto' src='"+data.success.avatar_url+"_38_38.jpg'>").addClass("p-0").removeClass("btn-block")
-                        }
-                    }
-                })
-                
-            })
-        </script>
 </body>
 </html>
