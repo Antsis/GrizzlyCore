@@ -47,7 +47,7 @@
                         <button id="login-reset" type="reset" class="invisible position-absolute" aria-hidden="true"></button>
                     </form>
                 </div>
-                <!-- reg1 -->
+                <!-- register1 -->
                 <div class="tab-pane fade mt-2" id="reg-page1" role="tabpanel" aria-labelledby="reg-tab">
                     <form class="container-lg">
                         <div class="form-group">
@@ -60,7 +60,7 @@
                         <div class="form-group">
                             <label for="code">验证码</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" id="code" placeholder="请输入验证码" maxlength="4" data-purl="{{url('login/checkCode')}}"/>
+                                <input type="text" class="form-control" id="code" placeholder="请输入验证码" maxlength="4" data-purl="{{url('user/checkCode')}}"/>
                                 
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="refresh">
@@ -69,7 +69,7 @@
                                 </div>
 
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><img id="code-img" src="{{ url('login/verify') }}" alt="captcha" onclick="this.setAttribute('src', '{{ url('login/verify') }}?id='+Math.random())" data-src="{{ url('login/verify') }}"></span>
+                                    <span class="input-group-text"><img id="code-img" src="{{ url('user/verify') }}" alt="captcha" onclick="this.setAttribute('src', '{{ url('login/verify') }}?id='+Math.random())" data-src="{{ url('login/verify') }}"></span>
                                 </div>
                                 <div class="invalid-feedback"></div>
                             </div>
@@ -82,7 +82,7 @@
                         <div class="form-group">
                             <small class="pr-2">使用其他账号登录:</small><a class="btn btn-primary btn-sm oauth-login" href="#" data-login-url="{{url('login/qqLogin')}}"  ><img class="pr-1" src="{{asset('static/images/icons/Connect_logo_1.png')}}">使用QQ登录</a>
                         </div>
-                        <button id="reg-submit" type="submit" class="btn btn-primary btn-block mb-2" data-target="#staticBackdrop" data-purl="{{url('login/register')}}">注册</button>
+                        <button id="reg-submit" type="submit" class="btn btn-primary btn-block mb-2" data-target="#staticBackdrop" data-purl="{{url('user/register')}}">注册</button>
                         <button id="reg-reset" type="reset" class="invisible position-absolute" aria-hidden="true"></button>
                     </form>
                 </div>
@@ -115,7 +115,7 @@
                     <div class="input-group">
                         <input type="text" class="form-control" id="sms-code" placeholder="请输入6位验证码" maxlength="6"/>
                         <div class="input-group-prepend">
-                            <button class="input-group-text" id="resend" type="button" data-purl="{{url('login/sendCodeSmsEmail')}}">重新发送验证码</button>
+                            <button class="input-group-text" id="resend" type="button" data-purl="{{url('user/sendCodeSmsEmail')}}">重新发送验证码</button>
                         </div>
                         <div class="invalid-feedback"></div>
                     </div>
@@ -125,7 +125,7 @@
                     <input type="password" class="form-control" id="reg-password" placeholder="请输入8-20位字母/数字/符号,至少包含两种的密码"/>
                     <div class="invalid-feedback"></div>
                 </div>
-                <button id="reg-submit2" type="submit" class="btn btn-primary btn-block mb-2 mt-4" data-dismiss="modal" data-purl="{{url('login/register2')}}">完成</button>
+                <button id="reg-submit2" type="submit" class="btn btn-primary btn-block mb-2 mt-4" data-dismiss="modal" data-purl="{{url('user/register')}}">完成</button>
                 <button id="reg2-reset" type="reset" class="invisible position-absolute" aria-hidden="true"></button>
             </form>
         </div>

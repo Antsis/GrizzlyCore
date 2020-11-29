@@ -23,6 +23,7 @@ Grizzly
             <li>普通头像和Gravatar头像共存, 如果用户上传头像就取消Gravatar,测试Gravatar性能(如果慢的话, 加载完成后再切换</li>
             <li>数据库迁移, 弄好表</li>
             <li>密码加密更新</li>
+            <li>试试自带表单验证</li>
         </ul>
         <a class="btn btn-primary btn-lg" href="vscode:" role="button">Just do it</a>
       </div>

@@ -11,40 +11,12 @@ use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Http\File;
 use Illuminate\Support\Facades\Storage;
 use Exception;
+use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    /**
-     * 
-     * 验证码图片
-     *
-     * @return 输出图片
-     */
-    public function verify()
-    {     
-        $captcha = new Captcha();
-        // $code = $captcha->captcha();
-        // session()->put('verify_code', $code);
-        $captcha->captcha();
-    }
-    /**
-     * 验证码动态监测
-     */
-    public function checkCode(Request $request)
-    {
-        if(empty($request->input('code'))){
-            return response()->json(["error"=>['code'=>'001','message'=>'code is empty!']]);
-        }
-        $code = strtolower($request->input('code'));
-        if(!session()->has('verify_code')){
-            return response()->json(["error"=>['code'=>'002','message'=>'session-verify_code is empty!']]);
-        }
-        if($code==session('verify_code')){
-            return response()->json(["success"=>['code'=>'101','message'=>'code is true!']]);
-        }else{
-            return response()->json(["error"=>['code'=>'003','message'=>'code is error!']]);
-        }
-    }
+    
+    
 
     /**
      * 注册请求
@@ -71,6 +43,7 @@ class LoginController extends Controller
             return response()->json(["error"=>['code'=>'005','message'=>'user already exists!']]);
         }
 
+        // 手机正则表达式 手机对应的操作
         if(preg_match('/^1[3-9]\d{9}$/', $phoneEmail)){
             session()->put('phone', $phoneEmail);
             session()->put('reg_state', '1');
@@ -79,6 +52,7 @@ class LoginController extends Controller
             }else{
                 return response()->json(["error"=>['code'=>'006','message'=>'server is error!']]);
             };
+            // 邮箱正则表达式 邮箱对应的操作
         }else if(preg_match('/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/', $phoneEmail)){
             session()->put('email', $phoneEmail);
             session()->put('reg_state', '0');
@@ -87,6 +61,7 @@ class LoginController extends Controller
             }else{
                 return response()->json(["error"=>['code'=>'007','message'=>'server is error!']]);
             };
+            // 如果匹配到@符号 则返回相应的消息
         }else if(preg_match('/@/', $phoneEmail)){
             return response()->json(["error"=>['code'=>'008','message'=>'Incorrect email format!']]);
         }else{
@@ -218,7 +193,7 @@ class LoginController extends Controller
 
         $user = new User;
         $user->username = $username;
-        $user->password = md5($passwd);
+        $user->password = bcrypt($passwd);
         $user->phone = $phone;
         if($user->save()){
             return $user->id;
@@ -246,7 +221,7 @@ class LoginController extends Controller
 
         $user = new User;
         $user->username = $username;
-        $user->password = md5($passwd);
+        $user->password = bcrypt($passwd);
         $user->email = $email;
         if($user->save()){
             return $user->id;
@@ -276,11 +251,13 @@ class LoginController extends Controller
         if(empty($web)){
             return response()->json(["error"=>['code'=>'003','message'=>'User not found!']]);
         }
+
+    
         $array = $web->toArray();
         }catch(Exception $e){
             return response()->json(["error"=>['code'=>'004','message'=>'Database exception!']]);
         }
-        if($array['phone']==$login&&$array['password']==md5($passwd)||$array['email']==$login&&$array['password']==md5($passwd)||$array['username']==$login&&$array['password']==md5($passwd)){
+        if($array['phone']==$login&&password_verify($passwd, $array['password'])||$array['email']==$login&&password_verify($passwd, $array['password'])||$array['username']==$login&&password_verify($passwd, $array['password'])){
             session()->put('logined', $array);
             if($request->input('login_state')==1){
                 $code = $this->code();
@@ -427,10 +404,6 @@ class LoginController extends Controller
         return $code;
     }
 
-    public function test()
-    {
-        
-    }
     /**
      * 检测登录状态
      *

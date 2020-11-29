@@ -15,16 +15,22 @@ mix.scripts([
     './resources/js/vendor/jquery.js',
     './resources/js/vendor/popper.min.js',
     './resources/js/vendor/bootstrap.js',
+    
     './resources/js/profile.js',
     './resources/js/reglogin.js',
-    './resources/js/profile.js',
+    './resources/js/common.js',
+
     './resources/js/admin/index.js',
     './resources/js/admin/user.js',
     './resources/js/admin/access.js',
     './resources/js/admin/role.js',
+
+    './resources/js/user/login.js',
+    './resources/js/user/register.js',
+    './resources/js/user/index.js',
 ], 'public/js/app.js')
     .styles([
         './resources/css/vendor/bootstrap.css',
         './resources/css/vendor/font-awesome.min.css',
-    ], 'public/css/app.css');
-    // .version();
+    ], 'public/css/app.css')
+    .version();

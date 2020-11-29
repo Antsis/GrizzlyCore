@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Tests\Unit\MainTest;
 use Illuminate\Support\Facades\Route;
 
@@ -38,16 +39,34 @@ Route::any('test', [MainTest::class, 'testMain']);
 
 
 
+Route::prefix('user')->group(function(){
+    //验证码
+    Route::get('verify', [UserController::class, 'create']);
+
+    // 动态监测验证码
+    Route::get('checkCode', [UserController::class, 'checkCode']);
+    Route::post('register', [UserController::class, 'store']);
+
+    Route::post('sendCodeSmsEmail', [UserController::class, 'sendCodeSmsEmail']);
+
+});
+
 Route::prefix('login')->group(function(){
+    //验证码
+    // Route::get('verify', [UserController::class, 'create']);
+
     Route::post('cookieLogin', [LoginController::class, 'cookieLogin']);
-    Route::post('checkCode', [LoginController::class, 'checkCode']);
-    Route::post('register', [LoginController::class, 'register']);
-    Route::post('register2', [LoginController::class, 'register2']);
-    Route::post('sendCodeSmsEmail', [LoginController::class, 'sendCodeSmsEmail']);
+    // 动态监测验证码
+    // Route::get('checkCode', [UserController::class, 'checkCode']);
+    
+    // Route::post('register', [UserController::class, 'register']);
+
+    // Route::post('register2', [LoginController::class, 'register2']);
+    // Route::post('sendCodeSmsEmail', [UserController::class, 'sendCodeSmsEmail']);
+    
+
     Route::get('qqLogin', [LoginController::class, 'qqLogin']);
     Route::post('login', [LoginController::class, 'login']);
-    Route::get('verify', [LoginController::class, 'verify']);
-    Route::any('test', [LoginController::class, 'test']);
     Route::get('logout', [LoginController::class, 'logout']);
     Route::any('checkLogined', [LoginController::class, 'checkLogined']);
     Route::get('qqcallback', [LoginController::class, 'qqcallback']);
