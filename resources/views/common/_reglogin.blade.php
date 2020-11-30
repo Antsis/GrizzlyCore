@@ -69,7 +69,7 @@
                                 </div>
 
                                 <div class="input-group-prepend">
-                                    <span class="input-group-text"><img id="code-img" src="{{ url('user/verify') }}" alt="captcha" onclick="this.setAttribute('src', '{{ url('login/verify') }}?id='+Math.random())" data-src="{{ url('login/verify') }}"></span>
+                                    <span class="input-group-text"><img id="code-img" src="{{ url('user/verify') }}" alt="captcha" onclick="this.setAttribute('src', '{{ url('user/verify') }}?id='+Math.random())" data-src="{{ url('user/verify') }}"></span>
                                 </div>
                                 <div class="invalid-feedback"></div>
                             </div>

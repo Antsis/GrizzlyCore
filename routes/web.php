@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProfileController;
@@ -37,6 +38,7 @@ Route::get('contact', function(){
 Route::any('test', [MainTest::class, 'testMain']);
 // Route::any('test', [TestController::class, 'Main']);
 
+Route::get('avatar', [AvatarController::class, 'index']);
 
 
 Route::prefix('user')->group(function(){

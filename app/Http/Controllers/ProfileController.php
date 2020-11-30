@@ -149,12 +149,12 @@ class ProfileController extends Controller
             $ext = $file->extension();
             if($ext == "jpeg" || $ext == "png"){
                 // 生成随机名
-                $name = Common::getRandCode(20, false);
-
+                // $name = Common::getRandCode(20, false);
+                $name = md5($data['username']);
                 // 裁剪头像并保存
                 $image = Image::open($file);
-                $image->thumb(200, 200, 2)->save('avatars/'. $name. '_200_200.jpg');
-                $image->thumb(38, 38, 2)->save('avatars/'. $name. '_38_38.jpg');
+                $image->thumb(200, 200, 2)->save('avatar/'. $name. '.jpg');
+                // $image->thumb(38, 38, 2)->save('avatar/'. $name. '_38_38.jpg');
 
 
 

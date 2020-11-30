@@ -195,7 +195,7 @@ $(function(){
                  "password": $("#reg-password").val(),
                  'step' : 0,
              },success: data=>{
-                 if(data=="error"){
+                 if(data.error){
                      $("body").append(`
                      <div class="alert alert-danger alert-dismissible fade show fixed-top text-center" role="alert">
                          <strong>服务器错误!</strong>请联系管理员
@@ -205,11 +205,11 @@ $(function(){
                      </div>
                    `)
                    $("#reg-reset").click()
-                 }else if(data=="error2"){
+                 }else if(data.error){
                      $("#reg-password").removeClass("is-valid").addClass("is-invalid").siblings(".invalid-feedback").text("密码强度不符合要求, 请输入8-20位字母/数字/符号,至少包含两种的密码");
-                 }else if(data=="error1"){
+                 }else if(data.error){
                      $("#sms-code").removeClass("is-valid").addClass("is-invalid").siblings(".invalid-feedback").text("验证码错误");
-                 }else{
+                 }else if(data.success){
                      $("body").append(`
                          <div class="alert alert-success alert-dismissible fade show fixed-top text-center" role="alert">
                              <strong>成功注册!</strong>
@@ -220,7 +220,7 @@ $(function(){
                      `);
                      $("#reg2-reset").click()
                      $("#reg-password").removeClass("is-invalid is-valid");
-                     $('#login-btn').attr('onclick', "window.location.href='"+$("#login-btn").attr("data-url")+"'").removeAttr("data-toggle").html("<img style='max-width:38px;height:auto' src='"+data.success.avatar_url+"_38_38.jpg'>").addClass("p-0").removeClass("btn-block")
+                     $('#login-btn').attr('onclick', "window.location.href='"+$("#login-btn").attr("data-url")+"'").removeAttr("data-toggle").html("<img style='max-width:38px;height:auto' src='"+data.success.avatar_url+"?s=38'>").addClass("p-0").removeClass("btn-block")
                  }
              },error: ()=>{
                  $("body").append(`

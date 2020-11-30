@@ -9,8 +9,8 @@
         <div class="row-cols-1 py-2">
             <h4>当前的头像</h4>
             <small>如果您还没有设置自己的头像，系统会显示为默认头像，您需要自己上传一张新照片来作为自己的个人头像</small>
-            <div class="my-4" style="max-width:200px;height:200px">
-                <img class="border border-dark" style="width: 100%;height: auto;" src="{{ asset($data['avatar_url']. '_200_200.jpg') }}" alt="头像">
+            <div class="my-4 border border-dark" style="width: 200px;height: 200px">
+                <img src="{{ asset($data['avatar_url']. '?s=200') }}" alt="头像">
             </div>
         </div>
         <div class="row-cols-1">

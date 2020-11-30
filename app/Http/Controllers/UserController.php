@@ -52,11 +52,14 @@ class UserController extends Controller
             if(!$request->has('phone_email')){
                 return response()->json(["error"=>['code'=>'002','message'=>'email is empty!']]);
             }
+
             $code = strtolower($request->input('code'));
             $phoneEmail = $request->input('phone_email');
+            //判断session验证码
             if(!session()->has('verify_code')){
                 return response()->json(["error"=>['code'=>'003','message'=>'verify code is empty!']]);
             }
+
             if($code!=session()->get('verify_code')){
                 return response()->json(["error"=>['code'=>'004','message'=>'The code is incorrect!']]);
             }
@@ -73,6 +76,7 @@ class UserController extends Controller
                 }else{
                     return response()->json(["error"=>['code'=>'006','message'=>'server is error!']]);
                 };
+
                 // 邮箱正则表达式 邮箱对应的操作
             }else if(preg_match('/^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/', $phoneEmail)){
                 session()->put('email', $phoneEmail);
@@ -91,6 +95,7 @@ class UserController extends Controller
 
         }else{
         // 注册步骤2
+            
             if(!$request->has('code')){
                 return response()->json(["error"=>['code'=>'001','message'=>'code is null!']]);
             }
@@ -99,11 +104,16 @@ class UserController extends Controller
             }
             $code = $request->input('code');
             $p = $request->input('password');
+            // 密码验证
             if(!((strlen($p)>7&&strlen($p)<21)&&((preg_match('/\d/', $p)&&preg_match('/[a-zA-Z]/', $p))||(preg_match('/[a-zA-Z]/', $p)&&preg_match('/\W/', $p))||(preg_match('/\d/', $p)&&preg_match('/\W/', $p))))){
                 return response()->json(["error"=>['code'=>'003','message'=>'The password is too simple!']]);
             }
+            if(!session()->has('reg_state')){
+                return response()->json(["error"=>['code'=>'009','message'=>'session reg_state is too simple!']]);
+            }
+            // reg_state 为1 的话是手机, 0的话是邮箱
             if(session()->get('reg_state')){
-                if(session()->has('sms_code')||session()->has('phone')){
+                if(!session()->has('sms_code')||!session()->has('phone')){
                     return response()->json(["error"=>['code'=>'004','message'=>'sms_code or phone is empty!']]);
                 }
                 if($code!=session()->get('sms_code')){
@@ -118,23 +128,23 @@ class UserController extends Controller
                 }else{
                     return response()->json(["error"=>['code'=>'006','message'=>'Server is incorrect!']]);
                 }
-                }else{
-                    if(session()->get('email_code')==null||session()->get('email')==null){
-                        return response()->json(["error"=>['code'=>'007','message'=>'The verification code is incorrect!!']]);
-                    }
-                    if($code!=session()->get('email_code')){
-                        return response()->json(["error"=>['code'=>'008','message'=>'The verification code is incorrect!!']]);
-                    }
-                    $email = session()->get('email');
-                    $state = $this->regCreateEmail($email, $p);
-                    if($state!=0){
-                        $array = User::find($state)->toArray();
-                        session()->put('logined', $array);
-                        return response()->json(["success"=>['code'=>'102','message'=>'Success login!(Email)', 'avatar_url'=>$array['avatar_url']]]);
-                    }else{ 
-                        return response()->json(["error"=>['code'=>'009','message'=>'Server is incorrect!']]);
-                    };
+            }else{
+                if(!session()->has('email_code')||!session()->has('email')){
+                    return response()->json(["error"=>['code'=>'007','message'=>'The verification code is incorrect!!']]);
                 }
+                if($code!=session()->get('email_code')){
+                    return response()->json(["error"=>['code'=>'008','message'=>'The verification code is incorrect!!']]);
+                }
+                $email = session()->get('email');
+                $state = $this->regCreateEmail($email, $p);
+                if($state!=0){
+                    $array = User::find($state)->toArray();
+                    session()->put('logined', $array);
+                    return response()->json(["success"=>['code'=>'102','message'=>'Success login!(Email)', 'avatar_url'=>$array['avatar_url']]]);
+                }else{ 
+                    return response()->json(["error"=>['code'=>'009','message'=>'Server is incorrect!']]);
+                };
+            }
         }
         
     }
@@ -289,11 +299,13 @@ class UserController extends Controller
         $user->username = $username;
         $user->password = bcrypt($passwd);
         $user->phone = $phone;
+        $app_url = env('APP_URL');
+        $user->avatar_url = $app_url."/avatar/defualt";
         if($user->save()){
             return $user->id;
         }else{
             return 0;
-        };
+        }
         
     }
 
@@ -317,9 +329,13 @@ class UserController extends Controller
         $user->username = $username;
         $user->password = bcrypt($passwd);
         $user->email = $email;
+        $avatar_url = md5(strtolower(trim($email)));
+        $user->avatar_url = "https://www.gravatar.com/avatar/$avatar_url";
         if($user->save()){
             return $user->id;
-        }else return 0;
+        }else{
+            return 0;
+        }
         
     }
 }

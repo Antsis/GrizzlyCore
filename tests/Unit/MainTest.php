@@ -18,7 +18,12 @@ class MainTest extends TestCase
     public function testMain(Request $request)
     {
 
-        return time();
+        $smsCode = "";
+        for($i=0;$i<6;$i++){
+            $smsCode .= rand(0, 9);
+        }
+
+        return $smsCode;
         
 
 

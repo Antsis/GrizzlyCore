@@ -23,7 +23,7 @@
         <div class="text-center" id="login-btn-parent" data-url="{{url('login/cookieLogin')}}">
             @if (session()->has('logined'))
                 <button id="login-btn" class="btn btn-outline-success my-2 my-sm-0 p-0" type="button" onclick="window.location.href='{{url('profile/profile')}}'">
-                    <img style="max-width:38px;height:auto" src="{{ asset(session()->get('logined')['avatar_url']. '_38_38.jpg')}}">
+                    <img style="width:38px;height:38px" src="{{ asset(session()->get('logined')['avatar_url']. '?s=38')}}">
                 </button>
             @else
                 <button id="login-btn" class="btn btn-outline-success btn-block my-2 my-sm-0" data-toggle="modal" data-target="#modal" type="button" data-url="{{url('profile/profile')}}">登录</button>
