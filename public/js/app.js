@@ -4560,7 +4560,7 @@ $(function(){
             return false;
         }
         $.ajax({
-            type: "POST",
+            type: "PUT",
             url: $(this).attr("data-purl"),
             data: {
                 "name" : $("#name").val(),
@@ -4635,13 +4635,12 @@ $(function(){
             return false;
         }
         $.ajax({
-            type: "POST",
+            type: "PUT",
             url: $(this).attr("data-purl"),
             data: {
                 'qq' : $("#qq").val()
             },
             success: data=>{
-                console.log(data.success)
                 if(data.success){
                     $("body").append(`
                         <div class="alert alert-success alert-dismissible fade show fixed-top text-center" role="alert">
@@ -4684,7 +4683,8 @@ $(function(){
         })
         return false;
     })
-    
+})
+$(function(){
     //avatar.html
     $("#close-btn").click(function(){
         window.location.href=$(this).data('url')+'?id='+Math.random()
@@ -4761,7 +4761,9 @@ $(function(){
         })
         return false
     })
-
+})
+$(function(){
+    
 })
 $(function(){
     $.ajaxSetup({
@@ -4774,7 +4776,7 @@ $(function(){
         url: $('#login-btn-parent').data('url'),
         success: data=>{
             if(data.success){
-                $('#login-btn').attr('onclick', "window.location.href='"+$("#login-btn").attr("data-url")+"'").removeAttr("data-toggle").html("<img style='max-width:38px;height:auto' src='"+data.success.avatar_url+"_38_38.jpg'>").addClass("p-0").removeClass("btn-block")
+                $('#login-btn').attr('onclick', "window.location.href='"+$("#login-btn").attr("data-url")+"'").removeAttr("data-toggle").html("<img style='width:38px;height:38px' src='"+data.success.avatar_url+"?s=38'>").addClass("p-0").removeClass("btn-block")
             }
         }
     })

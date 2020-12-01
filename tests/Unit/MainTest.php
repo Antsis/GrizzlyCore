@@ -19,14 +19,14 @@ class MainTest extends TestCase
      */
     public function testMain(Request $request)
     {
+        $a = 1;
+        $genders = ['保密', '女', '男'];
 
-
-        return dump($this->s);
+        for($i = 0;$genders as $gender){
+            index
+        }
 
     }
 
-    public function __construct(Request $request)
-    {
-        $this->s = $request->session()->get('logined');
-    }
+
 }

@@ -76,12 +76,13 @@ Route::prefix('login')->group(function(){
 });
 
 Route::middleware('checksession')->prefix('profile')->group(function(){
-    Route::get('profile/{op?}', [ProfileController::class, 'profile']);
-    Route::get('avatar', [ProfileController::class, 'avatar']);
-    Route::get('account', [ProfileController::class, 'account']);
+    Route::any('index', [ProfileController::class, 'index']);
+    Route::any('contact', [ProfileController::class, 'contact']);
+    Route::any('avatar', [ProfileController::class, 'avatar']);
+    Route::any('account', [ProfileController::class, 'account']);
+
+
     Route::post('avatarUpload', [ProfileController::class, 'avatarUpload']);
-    Route::post('profileSave', [ProfileController::class, 'profileSave']);
-    Route::post('profileContactSave', [ProfileController::class, 'profileContactSave']);
 });
 
 Route::middleware(['checksession', 'checkaccess'])->prefix('admin')->group(function(){

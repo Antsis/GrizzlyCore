@@ -7,8 +7,8 @@
 @section('profile-content')
 <div class="container py-3">
     <nav class="nav nav-pills nav-fill">
-        <a class="nav-item nav-link active" href="{{url('profile/profile')}}">基本资料</a>
-        <a class="nav-item nav-link" href="{{url('profile/profile/contact')}}">联系方式</a>
+        <a class="nav-item nav-link active" href="{{url('profile/index')}}">基本资料</a>
+        <a class="nav-item nav-link" href="{{url('profile/contact')}}">联系方式</a>
     </nav>
 </div>
 
@@ -38,10 +38,10 @@
         <div class="form-group row">
             <label for="gender" class="col-sm-2 col-form-label">性别</label>
             <div class="col-sm-2">
-                <select class="custom-select mr-sm-2" id="gender">
-                  <option value="0" selected>保密</option>
-                  <option value="2">女</option>
-                  <option value="1">男</option>
+                <select class="custom-select mr-sm-2" id="gender" >
+                  @foreach ($genders as $gender)
+                    <option value="{{ $loop->index }}" @if ( $user->gender == $loop->index ) selected @endif >{{$gender}}</option>
+                  @endforeach
                 </select>
             </div>
           </div>
@@ -86,7 +86,7 @@
         </div>
         <div class="form-group row py-4">
             <div class="col text-center">
-              <button id="profile-save" type="submit" class="btn btn-primary" data-purl="{{url('profile/profileSave')}}">保存</button>
+              <button id="profile-save" type="submit" class="btn btn-primary" data-purl="{{url('profile/index')}}">保存</button>
             </div>
           </div>
     </form>    

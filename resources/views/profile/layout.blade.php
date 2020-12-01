@@ -20,7 +20,7 @@
                             <path fill-rule="evenodd" d="M7.293 1.5a1 1 0 0 1 1.414 0l6.647 6.646a.5.5 0 0 1-.708.708L8 2.207 1.354 8.854a.5.5 0 1 1-.708-.708L7.293 1.5z"/>
                           </svg>
                       </a></li>
-                      <li class="breadcrumb-item"><a href="{{url('profile/profile')}}">设置</a></li>
+                      <li class="breadcrumb-item"><a href="{{url('profile/index')}}">设置</a></li>
                       <li class="breadcrumb-item active" aria-current="page">{{$title}}</li>
                     </ol>
                   </nav>
@@ -31,7 +31,7 @@
                 <ul class="list-group text-center">
                     <li class="list-group-item text-black-50">设置</li>
                     <li class="list-group-item {{ Request::getPathInfo() == '/profile/avatar' ? 'active text-light' : '' }}"><a class="{{ Request::getPathInfo() == '/profile/avatar' ? 'text-light' : '' }}" href="{{url('profile/avatar')}}">修改头像</a></li>
-                    <li class="list-group-item {{ Request::getPathInfo() == '/profile/profile' || Request::getPathInfo() == '/profile/profile/contact' ? 'active text-light' : '' }}"><a class="{{ Request::getPathInfo() == '/profile/profile' || Request::getPathInfo() == '/profile/profile/contact' ? 'text-light' : '' }}" href="{{url('profile/profile')}}">个人资料</a></li>
+                    <li class="list-group-item {{ Request::getPathInfo() == '/profile/index' || Request::getPathInfo() == '/profile/contact' ? 'active text-light' : '' }}"><a class="{{ Request::getPathInfo() == '/profile/index' || Request::getPathInfo() == '/profile/contact' ? 'text-light' : '' }}" href="{{url('profile/index')}}">个人资料</a></li>
                     <li class="list-group-item {{ Request::getPathInfo() == '/profile/account' ? 'active text-light' : '' }}"><a class="{{ Request::getPathInfo() == '/profile/account' ? 'text-light' : '' }}" href="{{url('profile/account')}}">账户安全</a></li>
                     <li class="list-group-item "><a href="{{url('login/logout')}}">退出登录</a></li>
                 </ul>

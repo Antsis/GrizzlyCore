@@ -31,9 +31,9 @@ class CheckAccess
         if(session()->has('logined')){
             $uid = session()->get('logined')['id'];
             // 判断管理员
-            // if($uid==12){
-            //     return $next($request);
-            // }
+            if(session()->get('logined')['is_admin']){
+                return $next($request);
+            }
             $role_ids = Common::getArray(UserRole::where('uid', $uid)->get(), 'role_id');
             if(!$role_ids){
                 return abort(403, '你没有权限!');

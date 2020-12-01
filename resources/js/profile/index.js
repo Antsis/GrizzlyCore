@@ -29,7 +29,7 @@ $(function(){
             return false;
         }
         $.ajax({
-            type: "POST",
+            type: "PUT",
             url: $(this).attr("data-purl"),
             data: {
                 "name" : $("#name").val(),
@@ -104,13 +104,12 @@ $(function(){
             return false;
         }
         $.ajax({
-            type: "POST",
+            type: "PUT",
             url: $(this).attr("data-purl"),
             data: {
                 'qq' : $("#qq").val()
             },
             success: data=>{
-                console.log(data.success)
                 if(data.success){
                     $("body").append(`
                         <div class="alert alert-success alert-dismissible fade show fixed-top text-center" role="alert">

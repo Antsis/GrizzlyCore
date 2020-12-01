@@ -11,7 +11,18 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
+    /**
+     * an Array 
+     *
+     * @var [Array]
+     */
     protected $user_info;
+
+    /**
+     * a User Model
+     *
+     * @var Model
+     */
     protected $user;
 
     /**
@@ -27,7 +38,7 @@ class ProfileController extends Controller
     /**
      * 个人信息页面
      */
-    public function profile(Request $request, $op='base')
+    public function index(Request $request)
     {
         $this->updateSession();
         switch ($request->method()) {
@@ -36,25 +47,35 @@ class ProfileController extends Controller
                     $this->user->birthday=0;
                 }
                 $this->user->birthday=date('Y-m-d', $this->user->birthday);
-        
-                if($op=='base'){
-                    return view('profile.profile', [
-                        'title' =>  '个人资料',
-                        'user' => $this->user,
+                
+                return view('profile.index', [
+                    'title' =>  '个人资料',
+                    'user' => $this->user,
+                    'genders' => ['保密', '男', '女'],
                     ]);
-                }else if($op=='contact'){
-                    return view('profile.profile_contact', [
-                        'title' =>  '个人资料',
-                        'user' => $this->user,
-        
-                    ]);
-                }
-
-                abort('参数错误');
                 break;
-            case 'POST':
-
-
+            case 'PUT':
+                if($request->has('name')){
+                    $name = $request->input('name');
+                }else $name = null;
+                
+                if($request->has('gender')){
+                    $gender = $request->input('gender');
+                }else $gender = 0;
+                if($request->has('birthday')){
+                    $date = strtotime($request->input('birthday'));
+                }else $date = 0;
+                if($request->has('signature')){
+                    $signature = $request->input('signature');
+                }else $signature = null;
+                $this->user->name = $name;
+                $this->user->gender = $gender;
+                $this->user->birthday = $date;
+                $this->user->signature = $signature;
+                if($this->user->save()){
+                    return response()->json(['success'=>['code'=>'101', 'message' => 'update profile is success!']]);
+                }
+                return response()->json(['error'=>['code'=>'001', 'message' => 'update is error!']]);
                 break;
             default:
                 response()->json(['error' => ['code' => '001', 'message' => 'ation is know']]);
@@ -64,11 +85,38 @@ class ProfileController extends Controller
 
     }
 
+    public function contact(Request $request)
+    {
+        $this->updateSession();
+        switch ($request->method()) {
+            case 'GET':
+                return view('profile.contact', [
+                    'title' =>  '个人资料',
+                    'user' => $this->user,
+                ]);
+                break;
+            case 'PUT':
+                if($request->has('qq')){
+                    $qq = $request->input('qq');
+                }else $qq=null;
+                $this->user->qq = $qq;
+                if($this->user->save()){
+                    return response()->json(['success'=>['code'=>'101', 'message' => 'update profile is success!']]);
+                }
+                return response()->json(['error'=>['code'=>'003', 'message' => 'Database is excption !']]);
+                break;
+            default:
+                response()->json(['error' => ['code' => '001', 'message' => 'ation is know']]);
+                break;
+        }
+    }
+
     /**
      * 修改头像页面
      */
     public function avatar(Request $request)
     {
+        $this->updateSession();
         switch ($request->method()) {
             case 'GET':
                 $data=$this->updateSession(session()->get('logined'));
@@ -77,7 +125,9 @@ class ProfileController extends Controller
                     'data' => $data
                 ]);                
                 break;
-            
+            case 'PUT':
+
+                break;
             default:
                 return response()->json(['error' => ['code' => '001', 'message' => 'action is null']]);
                 break;
@@ -100,64 +150,7 @@ class ProfileController extends Controller
     }
     
 
-    /**
-     * 个人资料保存请求
-     */
-    public function profileSave(Request $request)
-    {
-        if(!$request->has('name')){
-            $name = $request->input('name');
-        }else $name = null;
-        if(!$request->has('gender')){
-            $gender = $request->input('gender');
-        }else $gender = 0;
-        if(!!$request->has('birthday')){
-            $date = strtotime($request->input('birthday'));
-        }else $date = 0;
-        if(!!$request->has('signature')){
-            $signature = $request->input('signature');
-        }else{
-            $signature = null;
-        }
-        $array = session()->get('logined');
-        try{
-            $user = User::find($array['id']);
-            $user->name = $name;
-            $user->gender = $gender;
-            $user->birthday = $date;
-            $user->signature = $signature;
-            if($user->save()){
-                $this->updateSession($array);
-                return response()->json(['success'=>['code'=>'101', 'message' => 'update profile is success!']]);
-            }else{
-                return response()->json(['error'=>['code'=>'001', 'message' => 'update is error!']]);
-            };
-        }catch(Exception $e){
-            return response()->json(['error'=>['code'=>'002', 'message' => 'update is error!']]);
-        }
-    }
-
-    /**
-     * 联系方式保存请求
-     */
-    public function profileContactSave(Request $request)
-    {
-        if($request->input('qq')==""){
-            $qq=null;
-        }else{
-            $qq = $request->input('qq');
-        }
-        $array = session()->get('logined');
-        $user = User::find($array['id']);
-        try{
-            $user->save(['qq' => $qq]);
-            $this->updateSession($array);
-            return response()->json(['success'=>['code'=>'101', 'message' => 'update profile is success!']]);
-        }catch(Exception $e){
-            return response()->json(['error'=>['code'=>'001', 'message' => 'update is error!']]);
-        }
-    }
-
+    
     /**
      * 头像上传请求
      */
