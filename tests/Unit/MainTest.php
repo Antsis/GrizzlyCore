@@ -10,6 +10,8 @@ use Tests\TestCase;
 
 class MainTest extends TestCase
 {
+    protected $s;
+
     /**
      * A basic unit test example.
      *
@@ -18,14 +20,13 @@ class MainTest extends TestCase
     public function testMain(Request $request)
     {
 
-        $smsCode = "";
-        for($i=0;$i<6;$i++){
-            $smsCode .= rand(0, 9);
-        }
 
-        return $smsCode;
-        
+        return dump($this->s);
 
+    }
 
+    public function __construct(Request $request)
+    {
+        $this->s = $request->session()->get('logined');
     }
 }

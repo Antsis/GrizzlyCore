@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta HTTP-EQUIV="pragma" CONTENT="no-cache">
+    <meta http-equiv="pragma" content="no-cache">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @section('meta')
 

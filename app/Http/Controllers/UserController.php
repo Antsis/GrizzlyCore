@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
@@ -25,10 +26,10 @@ class UserController extends Controller
      */
     public function create()
     {
+        header('Content-type: image/png');
         $captcha = new Captcha();
-        // $code = $captcha->captcha();
-        // session()->put('verify_code', $code);
-        $captcha->captcha();
+        imagepng($captcha->image);
+        return response(imagepng($captcha->image))->header('Content-type', 'image/png');
     }
 
     /**
@@ -95,7 +96,6 @@ class UserController extends Controller
 
         }else{
         // 注册步骤2
-            
             if(!$request->has('code')){
                 return response()->json(["error"=>['code'=>'001','message'=>'code is null!']]);
             }
@@ -104,7 +104,7 @@ class UserController extends Controller
             }
             $code = $request->input('code');
             $p = $request->input('password');
-            // 密码验证
+            // 密码复杂的正则表达验证
             if(!((strlen($p)>7&&strlen($p)<21)&&((preg_match('/\d/', $p)&&preg_match('/[a-zA-Z]/', $p))||(preg_match('/[a-zA-Z]/', $p)&&preg_match('/\W/', $p))||(preg_match('/\d/', $p)&&preg_match('/\W/', $p))))){
                 return response()->json(["error"=>['code'=>'003','message'=>'The password is too simple!']]);
             }
@@ -206,7 +206,7 @@ class UserController extends Controller
 
 
     /**
-     * 验证码动态监测
+     * 验证码动态验证
      */
     public function checkCode(Request $request)
     {
@@ -219,9 +219,9 @@ class UserController extends Controller
         }
         if($code==session('verify_code')){
             return response()->json(["success"=>['code'=>'101','message'=>'code is true!']]);
-        }else{
-            return response()->json(["error"=>['code'=>'003','message'=>'code is error!']]);
         }
+
+        return response()->json(["error"=>['code'=>'003','message'=>'code is error!']]);
     }
 
     /**
@@ -237,7 +237,8 @@ class UserController extends Controller
                 ->first();
         if($web){
             return 1;
-        }else return 0;
+        }
+        return 0;
     }
 
     /**
@@ -263,7 +264,8 @@ class UserController extends Controller
         $res = $sm->sendCodeEmail(session()->get('email'));
         if($res==0){
             return 1;
-        }else return 0;
+        }
+        return 0;
     }
     /**
      * 这里是调用阿里云的短信服务
@@ -276,7 +278,8 @@ class UserController extends Controller
         $res = $sm->sendCodeSms(session()->get('phone'));
         if($res==0){
             return 1;
-        }else return 0;
+        }
+        return 0;
     }
 
      /**
@@ -286,7 +289,7 @@ class UserController extends Controller
      * @return integer|false
      */
 
-    public function regCreatePhone($phone, $passwd)
+    protected function regCreatePhone($phone, $passwd)
     {
         $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         $username = "";
@@ -300,13 +303,12 @@ class UserController extends Controller
         $user->password = bcrypt($passwd);
         $user->phone = $phone;
         $app_url = env('APP_URL');
-        $user->avatar_url = $app_url."/avatar/defualt";
+        $user->avatar_url = $app_url."/avatar/default";
         if($user->save()){
             return $user->id;
-        }else{
-            return 0;
         }
         
+        return 0;
     }
 
     /**
@@ -315,7 +317,7 @@ class UserController extends Controller
      * @param string $passwd 账号密码
      * @return integer|false
      */
-    public function regCreateEmail($email, $passwd)
+    protected function regCreateEmail($email, $passwd)
     {
         $chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         $username = "";
@@ -333,9 +335,7 @@ class UserController extends Controller
         $user->avatar_url = "https://www.gravatar.com/avatar/$avatar_url";
         if($user->save()){
             return $user->id;
-        }else{
-            return 0;
         }
-        
+        return 0;        
     }
 }

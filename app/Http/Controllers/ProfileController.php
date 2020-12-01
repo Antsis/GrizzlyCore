@@ -11,17 +11,17 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
+    protected $user_info;
+    protected $user;
+
     /**
      * 更新Session的存储信息
      *
-     * @param [Array] $array
-     * @return [Array] $data
      */
-    public function updateSession($array)
+    public function updateSession()
     {
-        $data = User::find($array['id'])->toArray();
-        session()->put('logined', $data);
-        return $data;
+        $this->user = User::find(session()->get('logined')['id']);
+        session()->put('logined', $this->user->toArray());
     }
 
     /**
@@ -29,38 +29,61 @@ class ProfileController extends Controller
      */
     public function profile(Request $request, $op='base')
     {
-        $data = $this->updateSession(session()->get('logined'));
-        if($data['birthday']==null){
-            $data['birthday']=0;
-        }
-        $data['birthday']=date('Y-m-d', $data['birthday']);
+        $this->updateSession();
+        switch ($request->method()) {
+            case 'GET':
+                if($this->user->birthday==null){
+                    $this->user->birthday=0;
+                }
+                $this->user->birthday=date('Y-m-d', $this->user->birthday);
+        
+                if($op=='base'){
+                    return view('profile.profile', [
+                        'title' =>  '个人资料',
+                        'user' => $this->user,
+                    ]);
+                }else if($op=='contact'){
+                    return view('profile.profile_contact', [
+                        'title' =>  '个人资料',
+                        'user' => $this->user,
+        
+                    ]);
+                }
 
-        if($op=='base'){
-            return view('profile.profile', [
-                'title' =>  '个人资料',
-                'data' => $data,
-            ]);
-        }else if($op=='contact'){
-            return view('profile.profile_contact', [
-                'title' =>  '个人资料',
-                'data' => $data
+                abort('参数错误');
+                break;
+            case 'POST':
 
-            ]);
-        }else{
-            abort('参数错误');
+
+                break;
+            default:
+                response()->json(['error' => ['code' => '001', 'message' => 'ation is know']]);
+                break;
         }
+        
+
     }
 
     /**
      * 修改头像页面
      */
-    public function avatar()
+    public function avatar(Request $request)
     {
-        $data=$this->updateSession(session()->get('logined'));
-        return view('profile.avatar', [
-            'title' => '修改头像',
-            'data' => $data
-        ]);
+        switch ($request->method()) {
+            case 'GET':
+                $data=$this->updateSession(session()->get('logined'));
+                return view('profile.avatar', [
+                    'title' => '修改头像',
+                    'data' => $data
+                ]);                
+                break;
+            
+            default:
+                return response()->json(['error' => ['code' => '001', 'message' => 'action is null']]);
+                break;
+        }
+
+        
     }
 
     /**
@@ -150,17 +173,15 @@ class ProfileController extends Controller
             if($ext == "jpeg" || $ext == "png"){
                 // 生成随机名
                 // $name = Common::getRandCode(20, false);
-                $name = md5($data['username']);
+                $md5 = md5($data['username']);
                 // 裁剪头像并保存
-                $image = Image::open($file);
-                $image->thumb(200, 200, 2)->save('avatar/'. $name. '.jpg');
+                // $image = Image::open($file);
+                // $image->save('avatar/'. $md5. '.jpg');
                 // $image->thumb(38, 38, 2)->save('avatar/'. $name. '_38_38.jpg');
-
-
 
                 // 将头像url保存到数据库
                 $user = User::find($data['id']);
-                $user->avatar_url = 'avatars/'. $name;
+                $user->avatar_url = env('APP_URL').'/avatar/'. $md5;
                 if($user->save()){
                     $this->updateSession($data);
                     return response()->json(['success'=>['code'=>'101', 'message' => 'file upload is success']]);
@@ -172,7 +193,6 @@ class ProfileController extends Controller
             }
         }else{
             return response()->json(['error'=>['code'=>'004', 'message'=>'File is empty']]);
-
         }
         
     }

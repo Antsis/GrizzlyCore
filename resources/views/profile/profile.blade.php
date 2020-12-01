@@ -18,20 +18,20 @@
         <div class="form-group row">
           <label for="staticId" class="col-sm-2 col-form-label">ID</label>
           <div class="col-sm-4">
-            <input type="text" readonly class="form-control-plaintext" id="staticId" value="{{ $data['id'] }}">
+            <input type="text" readonly class="form-control-plaintext" id="staticId" value="{{ $user->id }}">
           </div>
         </div>
         <div class="form-group row">
           <label for="staticUsername" class="col-sm-2 col-form-label">用户名</label>
           <div class="col-sm-4">
-            <input type="text" readonly class="form-control-plaintext" id="staticUsername" value="{{$data['username']}}">
+            <input type="text" readonly class="form-control-plaintext" id="staticUsername" value="{{ $user->username }}">
           </div>
         </div>
 
         <div class="form-group row">
           <label for="name" class="col-sm-2 col-form-label">姓名</label>
           <div class="col-sm-4">
-            <input type="text" class="form-control" id="name" value="{{$data['name']}}">
+            <input type="text" class="form-control" id="name" value="{{ $user->name }}">
             <div class="invalid-feedback"></div>
           </div>
         </div>
@@ -50,7 +50,7 @@
             <div class="col-sm-5">
                 <div class="row">
                     <div class="col-6">
-                      <input id="birthday" type="date" value="{{$data['birthday']}}">
+                      <input id="birthday" type="date" value="{{ $user->birthday }}">
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
         <div class="form-group row">
             <label for="signature" class="col-sm-2 col-form-label">个性签名</label>
             <div class="col-sm-10">
-                <textarea class="form-control" id="signature">{{$data['signature']}}</textarea>
+                <textarea class="form-control" id="signature">{{ $user->signature }}</textarea>
                 <div class="invalid-feedback"></div>
               </div>
         </div>

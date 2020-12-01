@@ -42,19 +42,19 @@ class Image
      *
      * @var resource
      */
-    protected $im;
+    public $im;
 
     /** @var  Gif */
-    protected $gif;
+    public $gif;
 
     /**
      * 图像信息，包括 width, height, type, mime, size
      *
      * @var array
      */
-    protected $info;
+    public $info;
 
-    protected function __construct(\SplFileInfo $file)
+    public function __construct(\SplFileInfo $file)
     {
         //获取图像信息
         $info = @getimagesize($file->getPathname());

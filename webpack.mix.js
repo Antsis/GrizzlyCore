@@ -16,8 +16,10 @@ mix.scripts([
     './resources/js/vendor/popper.min.js',
     './resources/js/vendor/bootstrap.js',
     
-    './resources/js/profile.js',
-    './resources/js/reglogin.js',
+    './resources/js/profile/index.js',
+    './resources/js/profile/avatar.js',
+    './resources/js/profile/account.js',
+
     './resources/js/common.js',
 
     './resources/js/admin/index.js',
@@ -28,6 +30,8 @@ mix.scripts([
     './resources/js/user/login.js',
     './resources/js/user/register.js',
     './resources/js/user/index.js',
+
+
 ], 'public/js/app.js')
     .styles([
         './resources/css/vendor/bootstrap.css',

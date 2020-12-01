@@ -38,7 +38,7 @@ Route::get('contact', function(){
 Route::any('test', [MainTest::class, 'testMain']);
 // Route::any('test', [TestController::class, 'Main']);
 
-Route::get('avatar', [AvatarController::class, 'index']);
+Route::get('avatar/{md5}', [AvatarController::class, 'index']);
 
 
 Route::prefix('user')->group(function(){
