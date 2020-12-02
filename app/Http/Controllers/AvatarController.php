@@ -18,19 +18,32 @@ class AvatarController extends Controller
         if($request->has('s')){
            $size = $request->input('s'); 
         }else $size = 200;
-        $path = "avatar/$md5.jpg";
+        $path = "./avatar/$md5.jpg";
         if(!is_file($path)){
             return response()->json(['error' => ['code' => '001', 'message' => 'path is not a file']]);
         }
+        $ext = mime_content_type($path);
+
+
+        // return dump($ext);
         $info = getimagesize($path);
         $new_im = imagecreatetruecolor($size, $size);
 
-        // return dump($new_im);
-        $im = imagecreatefromjpeg($path);
-        imagecopyresampled($new_im, $im, 0, 0, 0, 0, $size, $size, $info[0], $info[1]);
-        // imageinterlace($new_im, 1);
 
-        // imagepng($new_im);
+        // 头像类型处理
+        if($ext == 'image/jpeg'){
+            $im = imagecreatefromjpeg($path);
+        }else if($ext == 'image/png'){
+            $im = imagecreatefrompng($path);
+        }else if($ext == 'image/gif' ){
+            $im = imagecreatefromgif($path);
+        }else{
+            return abort(406, 'Type is error!');
+        }
+
+        if(!imagecopyresampled($new_im, $im, 0, 0, 0, 0, $size, $size, $info[0], $info[1])){
+            return response()->json(['error' => ['code' => '002', 'message' => 'Generative Failure!']]);
+        }
 
         return response(imagepng($new_im))->header('Content-type', 'image/png');
         imagedestroy($new_im);

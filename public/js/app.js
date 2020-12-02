@@ -4529,6 +4529,39 @@
 })));
 //# sourceMappingURL=bootstrap.js.map
 
+$(function() {
+    $.ajaxSetup({
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content")
+        }
+    });
+    $.ajax({
+        type: "POST",
+        url: $("#login-btn-parent").data("url"),
+        success: data => {
+            if (data.success) {
+                $("#login-btn")
+                    .attr(
+                        "onclick",
+                        "window.location.href='" +
+                            $("#login-btn").attr("data-url") +
+                            "'"
+                    )
+                    .removeAttr("data-toggle")
+                    .html(
+                        "<img style='width:38px;height:38px' src='" +
+                            data.success.avatar_url +
+                            "?s=38'>"
+                    )
+                    .addClass("p-0")
+                    .removeClass("btn-block");
+            }
+        }
+    });
+
+    
+});
+
 $(function(){
     var nameFlag=1;
     var signatureFlag=1;
@@ -4686,7 +4719,7 @@ $(function(){
 })
 $(function(){
     //avatar.html
-    $("#close-btn").click(function(){
+    $(".close-btn").click(function(){
         window.location.href=$(this).data('url')+'?id='+Math.random()
     })
     $("#close-btn2").click(function(){
@@ -4701,6 +4734,7 @@ $(function(){
         }else{
             avatarFlag=1;
             $(this).removeClass("is-invalid").addClass("is-valid")
+            $('#avatarEdit').modal('show')
         }
     })
     $("#avatar-upload").click(function(){
@@ -4709,10 +4743,10 @@ $(function(){
             return false
         }
         var formData = new FormData()
-        formData.append("image", $("#avatar")[0].files[0])
+        formData.append("image", $("#avatar").get(0).files[0])
         $.ajax({
             type: "POST",
-            url: $(this).attr("data-purl"),
+            url: $(this).data("purl"),
             data: formData,
             processData : false,
             contentType : false,
@@ -4761,25 +4795,11 @@ $(function(){
         })
         return false
     })
+
+
 })
 $(function(){
     
-})
-$(function(){
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    })
-    $.ajax({
-        type: "POST",
-        url: $('#login-btn-parent').data('url'),
-        success: data=>{
-            if(data.success){
-                $('#login-btn').attr('onclick', "window.location.href='"+$("#login-btn").attr("data-url")+"'").removeAttr("data-toggle").html("<img style='width:38px;height:38px' src='"+data.success.avatar_url+"?s=38'>").addClass("p-0").removeClass("btn-block")
-            }
-        }
-    })
 })
 $(function(){
     // 侧边导航栏 按钮跳转

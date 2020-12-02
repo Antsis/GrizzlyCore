@@ -15,12 +15,13 @@ mix.scripts([
     './resources/js/vendor/jquery.js',
     './resources/js/vendor/popper.min.js',
     './resources/js/vendor/bootstrap.js',
+    './resources/js/vendor/cropper.js',
+
+    './resources/js/common.js',
     
     './resources/js/profile/index.js',
     './resources/js/profile/avatar.js',
     './resources/js/profile/account.js',
-
-    './resources/js/common.js',
 
     './resources/js/admin/index.js',
     './resources/js/admin/user.js',
@@ -36,5 +37,7 @@ mix.scripts([
     .styles([
         './resources/css/vendor/bootstrap.css',
         './resources/css/vendor/font-awesome.min.css',
+
+        './resources/css/profile/avatar.css'
     ], 'public/css/app.css')
     .version();

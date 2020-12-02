@@ -1,6 +1,6 @@
 $(function(){
     //avatar.html
-    $("#close-btn").click(function(){
+    $(".close-btn").click(function(){
         window.location.href=$(this).data('url')+'?id='+Math.random()
     })
     $("#close-btn2").click(function(){
@@ -15,6 +15,7 @@ $(function(){
         }else{
             avatarFlag=1;
             $(this).removeClass("is-invalid").addClass("is-valid")
+            $('#avatarEdit').modal('show')
         }
     })
     $("#avatar-upload").click(function(){
@@ -23,10 +24,10 @@ $(function(){
             return false
         }
         var formData = new FormData()
-        formData.append("image", $("#avatar")[0].files[0])
+        formData.append("image", $("#avatar").get(0).files[0])
         $.ajax({
             type: "POST",
-            url: $(this).attr("data-purl"),
+            url: $(this).data("purl"),
             data: formData,
             processData : false,
             contentType : false,
@@ -75,4 +76,6 @@ $(function(){
         })
         return false
     })
+
+
 })
