@@ -21,14 +21,27 @@
             <small>头像保存后，您可能需要刷新一下本页面(按F5键)，才能查看最新的头像效果</small>
             
             <form>
+                    <div class="w-75">
+                        <img src="#" alt="" id="image" style="max-width: 100%; display: block;">
+                    </div>
+                    <div class="text-center my-2 invisible w-75" id="crop-btn">
+                        <span class="btn btn-primary mx-3 " id="zoom-out">
+                            <i class="fa fa-search-minus" aria-hidden="true"></i>
+                        </span>
+                        <span class="btn btn-primary mx-3 " id="zoom-in">
+                            <i class="fa fa-search-plus" aria-hidden="true"></i>
+                        </span>
+                        <span class="btn btn-primary mx-3 " id="rotate"  >
+                            <i class="fa fa-rotate-right" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div class="action custom-file ">
+                        <input type="file" id="avatar" class="custom-file-input" accept="image/jpg, image/jpeg, image/png" capture="user">
+                        <label class="custom-file-label col-6" for="avatar" data-browse="浏览">选择文件</label>
+                        <div class="invalid-feedback"></div>
+                    </div>
                         
-                        <div class="action custom-file my-4">
-                            <input type="file" id="avatar" class="custom-file-input" accept="image/jpg, image/jpeg, image/png" capture="user">
-                            <label class="custom-file-label col-6" for="avatar" data-browse="浏览">选择文件</label>
-                            <div class="invalid-feedback"></div>
-                        </div>
-                        
-                <div class="text-center col-6 pb-4">
+                <div class="text-center col-6 py-4">
                     <button id="avatar-upload" class="btn btn-primary col-3 text-center" type="submit" data-purl="{{url('profile/avatar')}}">上传</button>
                 </div>
             </form> 
@@ -36,43 +49,6 @@
 
     </div>
 
-    <!-- Modal  -->
-    <div class="modal fade" id="avatarEdit" data-backdrop="static" data-keyboard="false" tabindex="-1" role="dialog" aria-labelledby="avatarEdit" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel">选择头像</h5>
-                <button type="button" class="close close-btn" data-dismiss="modal" aria-label="Close" data-url="{{url('profile/avatar')}}">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-
-                    <div class="imageBox">
-                        <div class="thumbBox"></div>
-                        <div class="spinner" style="display: none">Loading...</div>
-                    </div>
-
-                    
-
-                    <div class="text-center my-2">
-                            <input class="btn btn-primary mx-3 " type="button" id="btnZoomIn" value="+" >
-                            <input class="btn btn-primary mx-3 " type="button" id="btnZoomOut" value=" - " >
-                            <!-- <input class="btn btn-primary" type="button" id="btnCrop" value="裁切" > -->
-                    </div>
-                    <div class="cropped my-4 text-center">
-                            
-                    </div>
-
-                    
-            </div>
-            <div class="modal-footer justify-content-center">
-                <button type="button" class="btn btn-primary" id="btnCrop" data-dismiss="modal">裁切</button>
-            </div>
-        </div>
-        </div>
-    </div>
   
 
     <!-- Modal -->

@@ -16,6 +16,7 @@ mix.scripts([
     './resources/js/vendor/popper.min.js',
     './resources/js/vendor/bootstrap.js',
     './resources/js/vendor/cropper.js',
+    './resources/js/vendor/jquery-cropper.js',
 
     './resources/js/common.js',
     
@@ -37,6 +38,7 @@ mix.scripts([
     .styles([
         './resources/css/vendor/bootstrap.css',
         './resources/css/vendor/font-awesome.min.css',
+        './resources/css/vendor/cropper.css',
 
         './resources/css/profile/avatar.css'
     ], 'public/css/app.css')

@@ -18,6 +18,8 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "bootstrap": "^4.5.3"
+        "@types/jquery": "^3.5.4",
+        "bootstrap": "^4.5.3",
+        "cropperjs": "^1.5.9"
     }
 }

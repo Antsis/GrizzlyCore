@@ -19,8 +19,7 @@ Grizzly
             <li>电商功能</li>
             <li>Redis</li>
             <li>队列</li>
-            <li>优化登录与个人资料后台</li>
-            <li>前端头像裁切</li>
+            <li>优化登录控制器</li>
         </ul>
         <a class="btn btn-primary btn-lg" href="vscode:" role="button">Just do it</a>
       </div>
