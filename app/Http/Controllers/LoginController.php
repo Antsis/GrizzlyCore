@@ -183,7 +183,7 @@ class LoginController extends Controller
     public function code()
     {
         $data = '1234567890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM';
-        $code ='';
+        $code = '';
         for($i=0;$i<64;$i++){
             $fontContext = substr($data, rand(0, strlen($data)-1), 1);
             $code .= $fontContext;

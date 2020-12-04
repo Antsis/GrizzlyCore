@@ -6,9 +6,9 @@
 
 @section('profile-content')
 <div class="container py-3">
-    <nav class="nav nav-pills nav-fill">
-        <a class="nav-item nav-link active" href="{{url('profile/index')}}">基本资料</a>
-        <a class="nav-item nav-link" href="{{url('profile/contact')}}">联系方式</a>
+    <nav class="nav nav-pills nav-fill row">
+        <a class="nav-item nav-link active col-sm-6" href="{{url('profile/index')}}">基本资料</a>
+        <a class="nav-item nav-link col-sm-6" href="{{url('profile/contact')}}">联系方式</a>
     </nav>
 </div>
 
@@ -16,8 +16,8 @@
 <div class="container bg-light">
     <form class="px-3">
         <div class="form-group row">
-          <label for="staticId" class="col-sm-2 col-form-label">ID</label>
-          <div class="col-sm-4">
+          <label for="staticId" class="col-2 col-form-label">ID</label>
+          <div class="col-4">
             <input type="text" readonly class="form-control-plaintext" id="staticId" value="{{ $user->id }}">
           </div>
         </div>
@@ -29,16 +29,16 @@
         </div>
 
         <div class="form-group row">
-          <label for="name" class="col-sm-2 col-form-label">姓名</label>
-          <div class="col-sm-4">
+          <label for="name" class="col-md-2 col-form-label">姓名</label>
+          <div class="col-md-4">
             <input type="text" class="form-control" id="name" value="{{ $user->name }}">
             <div class="invalid-feedback"></div>
           </div>
         </div>
         <div class="form-group row">
-            <label for="gender" class="col-sm-2 col-form-label">性别</label>
-            <div class="col-sm-2">
-                <select class="custom-select mr-sm-2" id="gender" >
+            <label for="gender" class="col-md-2 col-form-label">性别</label>
+            <div class="col-md-2">
+                <select class="custom-select mr-md-2" id="gender" >
                   @foreach ($genders as $gender)
                     <option value="{{ $loop->index }}" @if ( $user->gender == $loop->index ) selected @endif >{{$gender}}</option>
                   @endforeach
@@ -46,10 +46,10 @@
             </div>
           </div>
         <div class="form-group row">
-            <label for="birthday" class="col-sm-2 col-form-label">生日</label>
-            <div class="col-sm-5">
+            <label for="birthday" class="col-md-2 col-form-label">生日</label>
+            <div class="col-md-5">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-md-6">
                       <input id="birthday" type="date" value="{{ $user->birthday }}">
                     </div>
                 </div>
@@ -78,15 +78,15 @@
             </div>
           </div> -->
         <div class="form-group row">
-            <label for="signature" class="col-sm-2 col-form-label">个性签名</label>
-            <div class="col-sm-10">
+            <label for="signature" class="col-md-2 col-form-label">个性签名</label>
+            <div class="col-md-10">
                 <textarea class="form-control" id="signature">{{ $user->signature }}</textarea>
                 <div class="invalid-feedback"></div>
               </div>
         </div>
         <div class="form-group row py-4">
-            <div class="col text-center">
-              <button id="profile-save" type="submit" class="btn btn-primary" data-purl="{{url('profile/index')}}">保存</button>
+            <div class="col text-center ">
+              <button id="profile-save" type="submit" class="btn btn-primary col-md-2 col-sm-8 " data-purl="{{url('profile/index')}}">保存</button>
             </div>
           </div>
     </form>    

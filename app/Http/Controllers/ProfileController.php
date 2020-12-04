@@ -82,6 +82,12 @@ class ProfileController extends Controller
 
     }
 
+    /**
+     * 联系方式页面
+     *
+     * @param Request $request
+     * @return void
+     */
     public function contact(Request $request)
     {
         $this->updateSession();
@@ -156,15 +162,72 @@ class ProfileController extends Controller
     /**
      * 账号安全页面
      */
-    public function account()
+    public function password(Request $request)
     {
-        $data=$this->updateSession(session()->get('logined'));
-        
-        return view('profile.account', [
-            'title' => '账号安全',
-            'data' => $data
-        ]);
+        $this->updateSession();
+        switch ($request->getMethod()) {
+            case 'GET':
+                return view('profile.account.password', [
+                    'title' => '修改密码',
+                    'user' => $this->user,
+                ]);
+                break;
+            case 'PUT':
+                
+
+
+
+
+
+            default:
+                return response()->json(['error' => ['code' => '001', 'meassage' => 'HTTP action is error']]);
+                break;
+        }
+
+
     }
 
+    /**
+     * 修改邮箱
+     *
+     * @return void
+     */
+    public function email(Request $request)
+    {
+        $this->updateSession();
+
+        switch ($request->getMethod()) {
+            case 'GET':
+                return view('profile.account.email', [
+                    'title' => '修改邮箱',
+                    'user' => $this->user,
+                ]);
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+
+        
+    }
+
+    public function phone(Request $request)
+    {
+        $this->updateSession();
+
+        switch ($request->getMethod()) {
+            case 'GET':
+                return view('profile.account.phone', [
+                    'title' => '修改手机',
+                    'user' => $this->user,
+                ]);
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+    }
     
 }

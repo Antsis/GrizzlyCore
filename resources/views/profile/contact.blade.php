@@ -6,9 +6,9 @@
 
 @section('profile-content')
 <div class="container py-3">
-    <nav class="nav nav-pills nav-fill">
-        <a class="nav-item nav-link" href="{{url('profile/index')}}">基本资料</a>
-        <a class="nav-item nav-link active" href="{{url('profile/contact')}}">联系方式</a>
+    <nav class="nav nav-pills nav-fill row">
+        <a class="nav-item nav-link col-sm-6" href="{{url('profile/index')}}">基本资料</a>
+        <a class="nav-item nav-link active col-sm-6" href="{{url('profile/contact')}}">联系方式</a>
     </nav>
 </div>
 
@@ -45,7 +45,7 @@
         </div>
         <div class="form-group row py-4">
             <div class="col text-center">
-              <button id="profile-c-save" type="submit" class="btn btn-primary" data-purl="{{url('profile/contact')}}">保存</button>
+              <button id="profile-c-save" type="submit" class="btn btn-primary col-md-2 col-sm-8 " data-purl="{{url('profile/contact')}}">保存</button>
             </div>
           </div>
     </form>

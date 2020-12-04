@@ -19,33 +19,31 @@
             <small>请选择一个新照片进行上传编辑</small>
             <br>
             <small>头像保存后，您可能需要刷新一下本页面(按F5键)，才能查看最新的头像效果</small>
-            
-            <form>
-                    <div class="w-75">
-                        <img src="#" alt="" id="image" style="max-width: 100%; display: block;">
-                    </div>
-                    <div class="text-center my-2 invisible w-75" id="crop-btn">
-                        <span class="btn btn-primary mx-3 " id="zoom-out">
-                            <i class="fa fa-search-minus" aria-hidden="true"></i>
-                        </span>
-                        <span class="btn btn-primary mx-3 " id="zoom-in">
-                            <i class="fa fa-search-plus" aria-hidden="true"></i>
-                        </span>
-                        <span class="btn btn-primary mx-3 " id="rotate"  >
-                            <i class="fa fa-rotate-right" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <div class="action custom-file ">
-                        <input type="file" id="avatar" class="custom-file-input" accept="image/jpg, image/jpeg, image/png" capture="user">
-                        <label class="custom-file-label col-6" for="avatar" data-browse="浏览">选择文件</label>
-                        <div class="invalid-feedback"></div>
-                    </div>
-                        
-                <div class="text-center col-6 py-4">
-                    <button id="avatar-upload" class="btn btn-primary col-3 text-center" type="submit" data-purl="{{url('profile/avatar')}}">上传</button>
+        </div>
+            <form class="mb-4">
+                <div class="col-md-9">
+                    <img src="#" alt="" id="image" style="max-width: 100%; display: block;">
+                </div>
+                <div class="text-center my-2 invisible col-md-9" id="crop-btn">
+                    <span class="btn btn-primary mx-3 " id="zoom-out">
+                        <i class="fa fa-search-minus" aria-hidden="true"></i>
+                    </span>
+                    <span class="btn btn-primary mx-3 " id="zoom-in">
+                        <i class="fa fa-search-plus" aria-hidden="true"></i>
+                    </span>
+                    <span class="btn btn-primary mx-3 " id="rotate"  >
+                        <i class="fa fa-rotate-right" aria-hidden="true"></i>
+                    </span>
+                </div>
+                <div class="action custom-file">
+                    <input type="file" id="avatar" class="custom-file-input" accept="image/jpg, image/jpeg, image/png" capture="user">
+                    <label class="custom-file-label col-md-6 col-sm-8" for="avatar" data-browse="浏览">选择文件</label>
+                    <div class="invalid-feedback"></div>
+                </div>
+                <div class="text-center py-4">
+                    <button id="avatar-upload" class="btn btn-primary text-center col-md-2 col-sm-8 " type="submit" data-purl="{{url('profile/avatar')}}">上传</button>
                 </div>
             </form> 
-        </div>
 
     </div>
 
@@ -64,7 +62,7 @@
             <div class="modal-body text-center">
                 <p>图片上传成功</p>
             </div>
-            <div class="modal-footer justify-content-center">
+            <div class="modal-footer justify-content-center row py-4">
                 <button type="button" id="close-btn2" class="btn btn-primary" data-dismiss="modal" data-url="{{url('profile/avatar')}}">完成</button>
             </div>
         </div>

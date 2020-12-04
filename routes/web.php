@@ -78,11 +78,12 @@ Route::prefix('login')->group(function(){
 Route::middleware('checksession')->prefix('profile')->group(function(){
     Route::any('index', [ProfileController::class, 'index']);
     Route::any('contact', [ProfileController::class, 'contact']);
+    Route::any('account/password', [ProfileController::class, 'password']);
+    Route::any('account/email', [ProfileController::class, 'email']);
+    Route::any('account/phone', [ProfileController::class, 'phone']);
+
+
     Route::any('avatar', [ProfileController::class, 'avatar']);
-    Route::any('account', [ProfileController::class, 'account']);
-
-
-    Route::post('avatarUpload', [ProfileController::class, 'avatarUpload']);
 });
 
 Route::middleware(['checksession', 'checkaccess'])->prefix('admin')->group(function(){

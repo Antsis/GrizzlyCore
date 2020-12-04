@@ -27,16 +27,16 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-2">
+            <div class="col-md-2">
                 <ul class="list-group text-center">
                     <li class="list-group-item text-black-50">设置</li>
                     <li class="list-group-item {{ Request::getPathInfo() == '/profile/avatar' ? 'active text-light' : '' }}"><a class="{{ Request::getPathInfo() == '/profile/avatar' ? 'text-light' : '' }}" href="{{url('profile/avatar')}}">修改头像</a></li>
                     <li class="list-group-item {{ Request::getPathInfo() == '/profile/index' || Request::getPathInfo() == '/profile/contact' ? 'active text-light' : '' }}"><a class="{{ Request::getPathInfo() == '/profile/index' || Request::getPathInfo() == '/profile/contact' ? 'text-light' : '' }}" href="{{url('profile/index')}}">个人资料</a></li>
-                    <li class="list-group-item {{ Request::getPathInfo() == '/profile/account' ? 'active text-light' : '' }}"><a class="{{ Request::getPathInfo() == '/profile/account' ? 'text-light' : '' }}" href="{{url('profile/account')}}">账户安全</a></li>
+                    <li class="list-group-item {{ Request::getPathInfo() == '/profile/account/password' || Request::getPathInfo() == '/profile/account/email' || Request::getPathInfo() == '/profile/account/phone' ? 'active text-light' : '' }}"><a class="{{ Request::getPathInfo() == '/profile/account/password' || Request::getPathInfo() == '/profile/account/email' || Request::getPathInfo() == '/profile/account/phone' ? 'text-light' : '' }}" href="{{url('profile/account/password')}}">账户安全</a></li>
                     <li class="list-group-item "><a href="{{url('login/logout')}}">退出登录</a></li>
                 </ul>
             </div>
-            <div class="col-10">
+            <div class="col-md-10">
                 <div class="bg-light shadow-sm">
                     @section('profile-content')
 
