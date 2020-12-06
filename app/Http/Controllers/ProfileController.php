@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\AccountSecurity;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Auth\EloquentUserProvider;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
@@ -165,7 +168,7 @@ class ProfileController extends Controller
     public function password(Request $request)
     {
         $this->updateSession();
-        switch ($request->getMethod()) {
+        switch ($request->method()) {
             case 'GET':
                 return view('profile.account.password', [
                     'title' => '修改密码',
@@ -173,17 +176,31 @@ class ProfileController extends Controller
                 ]);
                 break;
             case 'PUT':
-                
-
-
-
-
-
+                if(!$request->has('old_p')){
+                    return response()->json(['error' => ['code' => '002', 'meassage' => 'old password is null']]);
+                }
+                if(!$request->has('new_p')){
+                    return response()->json(['error' => ['code' => '003', 'meassage' => 'new password is null']]);
+                }
+                if(!$request->has('confirm_p')){
+                    return response()->json(['error' => ['code' => '004', 'meassage' => 'new password is null']]);
+                }
+                $c_password = $request->get('new_p');
+                if($c_password!=$request->get('confirm_p')){
+                    return response()->json(['error' => ['code' => '005', 'meassage' => 'new password and confirm is error']]);
+                }
+                if(!password_verify($request->get('old_p'), $this->user->password)){
+                    return response()->json(['error' => ['code' => '006', 'meassage' => 'old password is error']]);
+                }
+                $this->user->password = bcrypt($c_password);
+                if($this->user->save()){
+                    return response()->json(['success' => ['code' => '101', 'message' => 'password is successfully changed']]);
+                }
+                return response()->json(['error' => ['code' => '007', 'meassage' => 'old password is error']]);
             default:
                 return response()->json(['error' => ['code' => '001', 'meassage' => 'HTTP action is error']]);
                 break;
         }
-
 
     }
 
@@ -196,16 +213,59 @@ class ProfileController extends Controller
     {
         $this->updateSession();
 
-        switch ($request->getMethod()) {
+        switch ($request->method()) {
             case 'GET':
                 return view('profile.account.email', [
                     'title' => '修改邮箱',
                     'user' => $this->user,
                 ]);
                 break;
-            
+                // 发送邮件
+            case 'POST':
+                if(!$request->has('password')){
+                    return response()->json(['error' => ['code' => '002', 'meassage' => 'old password is null']]);
+                }
+                if(!$request->has('email')){
+                    return response()->json(['error' => ['code' => '003', 'meassage' => 'new email is null']]);
+                }
+                if(!password_verify($request->get('password'), $this->user->password)){
+                    return response()->json(['error' => ['code' => '004', 'meassage' => 'old password is error']]);
+                }
+                $emailCode = "";
+                for($i=0;$i<6;$i++){
+                    $emailCode .= rand(0, 9);
+                }
+                session()->put('new_email_code', $emailCode);
+                Mail::to($request->get('email'))->send(new AccountSecurity($emailCode));
+                return response()->json(['success' => ['code' => '101', 'meassage' => 'email code is successfully send']]);
+                break;
+            case 'PUT':
+                if(!$request->has('password')){
+                    return response()->json(['error' => ['code' => '002', 'meassage' => 'old password is null']]);
+                }
+                if(!$request->has('email')){
+                    return response()->json(['error' => ['code' => '003', 'meassage' => 'new email is null']]);
+                }
+                if(!$request->has('code')){
+                    return response()->json(['error' => ['code' => '004', 'meassage' => 'code is null']]);
+                }
+                if(!session()->has('new_email_code')){
+                    return response()->json(['error' => ['code' => '005', 'meassage' => 'new email code is null']]);
+                }
+                if(!password_verify($request->get('password'), $this->user->password)){
+                    return response()->json(['error' => ['code' => '006', 'meassage' => 'old password is error']]);
+                }
+                if($request->get('code')!=session()->get('new_email_code')){
+                    return response()->json(['error' => ['code' => '007', 'meassage' => 'code is error']]);
+                }
+                $this->user->email = $request->get('email');
+                if($this->user->save()){
+                    return response()->json(['success' => ['code' => '101', 'meassage' => 'email is successfully changed']]);
+                }
+                return response()->json(['error' => ['code' => '008', 'meassage' => 'database is error']]);
+                break;
             default:
-                # code...
+                return response()->json(['error' => ['code' => '001', 'meassage' => 'HTTP action is error']]);
                 break;
         }
 

@@ -9,7 +9,7 @@
     <h5>亲爱的用户:</h5>
     <br>
     <p>您好, 你在GrizzlyCraft的邮箱验证码是:</p>
-    <p>{{ $data }}</p>
+    <p><strong>{{ $data }}</strong></p>
     <small>(为了保障您帐号的安全性,请在2小时内完成验证)</small>
     <br>
     <br>
