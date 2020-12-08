@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Auth\EloquentUserProvider;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
@@ -34,6 +35,14 @@ class ProfileController extends Controller
         $this->user = User::find(session()->get('logined')['id']);
         session()->put('logined', $this->user->toArray());
     }
+
+
+    // public function __construct(Request $request)
+    // {
+    //     $this->user = User::find(session()->get('logined')['id']);
+    //     session()->put('logined', $this->user->toArray());
+    // }
+
 
     /**
      * 个人信息页面

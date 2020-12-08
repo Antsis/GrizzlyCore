@@ -185,6 +185,8 @@ $(function(){
             success: data => {
                 if(data.success){
                     sendEmailCode($(this))
+                }else if(data.success.code=='004'){
+                    $email_old_password.removeClass("is-valid").addClass("is-invalid").siblings(".invalid-feedback").text("旧密码错误");
                 }else{
                     $("body").append(`
                         <div class="alert alert-danger alert-dismissible fade show fixed-top text-center" role="alert">
