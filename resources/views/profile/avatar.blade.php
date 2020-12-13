@@ -62,7 +62,7 @@
             <div class="modal-body text-center">
                 <p>图片上传成功</p>
             </div>
-            <div class="modal-footer justify-content-center row py-4">
+            <div class="modal-footer justify-content-center py-4">
                 <button type="button" id="close-btn2" class="btn btn-primary" data-dismiss="modal" data-url="{{url('profile/avatar')}}">完成</button>
             </div>
         </div>

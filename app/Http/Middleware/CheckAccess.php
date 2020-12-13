@@ -6,6 +6,7 @@ use App\Http\Controllers\Common;
 use App\Models\Access;
 use App\Models\AccessLog;
 use App\Models\RoleAccess;
+use App\Models\User;
 use App\Models\UserRole;
 use Closure;
 use Illuminate\Http\Request;
@@ -31,7 +32,7 @@ class CheckAccess
         if(session()->has('logined')){
             $uid = session()->get('logined')['id'];
             // 判断管理员
-            if(session()->get('logined')['is_admin']){
+            if(User::find($uid)->is_admin){
                 return $next($request);
             }
             $role_ids = Common::getArray(UserRole::where('uid', $uid)->get(), 'role_id');
