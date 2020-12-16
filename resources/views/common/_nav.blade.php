@@ -13,6 +13,9 @@
             <li class="nav-item {{ Request::getPathInfo()=='/bbs'?'active':'' }}">
                 <a class="nav-link" href="{{ url('bbs') }}">论坛</a>
             </li>
+            <li class="nav-item {{ Request::getPathInfo()=='/shop'?'active':'' }}">
+                <a class="nav-link" href="{{ url('shop') }}">商城</a>
+            </li>
             <li class="nav-item {{ Request::getPathInfo()=='/contact'?'active':'' }}">
                 <a class="nav-link" href="{{ url('contact') }}">联系我们</a>
             </li>
