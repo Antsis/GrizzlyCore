@@ -28,7 +28,7 @@ class ProfileController extends Controller
 
     /**
      * 更新Session的存储信息
-     *
+     *  TODO : 查明为了构造函数不起作用
      */
     public function updateSession()
     {

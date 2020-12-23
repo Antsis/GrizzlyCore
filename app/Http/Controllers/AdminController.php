@@ -8,11 +8,6 @@ use App\Models\RoleAccess;
 use App\Models\User;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Symfony\Component\HttpKernel\Event\ViewEvent;
-
-use function PHPUnit\Framework\returnSelf;
-use function Ramsey\Uuid\v1;
 
 /**
  * 后台相关控制器

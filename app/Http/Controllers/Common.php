@@ -5,6 +5,9 @@
 
 namespace App\Http\Controllers;
 
+
+use Illuminate\Support\Str;
+
 class Common
 {
     /**
@@ -15,7 +18,8 @@ class Common
      */
     static public function getRandCode($length = 16, $strup = true)
     {
-        return ($strup)?strtoupper(bin2hex(random_bytes($length))):bin2hex(random_bytes($length));
+        // return ($strup)?strtoupper(bin2hex(random_bytes($length))):bin2hex(random_bytes($length));
+        return $strup ? Str::upper(Str::random($length)) : Str::random($length);
     }
 
     /**
