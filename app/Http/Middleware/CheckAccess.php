@@ -81,7 +81,7 @@ class CheckAccess
                 $log->http_type = $request->method();
                 $log->ip = $request->ip();
                 $log->ua = $request->server('HTTP_USER_AGENT');
-                $log->created_at = time();
+                $log->created_at = now('+8:00');
                 $log->save();
                 return $next($request);
             }else{
