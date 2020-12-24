@@ -10,5 +10,5 @@ class UserRole extends Model
 {
     use HasFactory;
     use SoftDeletes;
-    protected $dateFormat = 'U';
+    // protected $dateFormat = 'U';
 }
