@@ -55,7 +55,7 @@ class ProfileController extends Controller
                 if($this->user->birthday==null){
                     $this->user->birthday=0;
                 }
-                $this->user->birthday=date('Y-m-d', $this->user->birthday);
+                $this->user->birthday = $date = date('Y-m-d', strtotime($this->user->birthday));
                 
                 return view('profile.index', [
                     'title' =>  '个人资料',
@@ -71,8 +71,15 @@ class ProfileController extends Controller
                 if($request->has('gender')){
                     $gender = $request->input('gender');
                 }else $gender = 0;
+
                 if($request->has('birthday')){
                     $date = strtotime($request->input('birthday'));
+
+
+                    if(!$date< || !$date > 2145888000){
+                        return response()->json(['error'=>['code'=>'005', 'message' => 'birthday is error!']]);
+                    }
+                    $date = $request->input('birthday');
                 }else $date = 0;
                 if($request->has('signature')){
                     $signature = $request->input('signature');

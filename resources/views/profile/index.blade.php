@@ -50,7 +50,7 @@
             <div class="col-md-5">
                 <div class="row">
                     <div class="col-md-6">
-                      <input id="birthday" type="date" value="{{ $user->birthday }}">
+                      <input id="birthday" type="date" value="{{ $user->birthday }}" min="1970-01-02" max="2038-01-01">
                     </div>
                 </div>
             </div>
