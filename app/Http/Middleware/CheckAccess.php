@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\UserRole;
 use Closure;
 use Illuminate\Http\Request;
+use League\OAuth1\Client\Server\Tumblr;
 
 class CheckAccess
 {
@@ -33,7 +34,8 @@ class CheckAccess
             $uid = session()->get('logined')['id'];
             // 判断管理员
             if(User::find($uid)->is_admin){
-                return $next($request);
+                $flag = true;
+                goto f;
             }
             $role_ids = Common::getArray(UserRole::where('uid', $uid)->get(), 'role_id');
             if(!$role_ids){
@@ -73,6 +75,8 @@ class CheckAccess
                     $flag = false;
                 }
             }
+            
+            f:
             if($flag){
                 // 日志记录
                 $log = new AccessLog();
@@ -81,7 +85,7 @@ class CheckAccess
                 $log->http_type = $request->method();
                 $log->ip = $request->ip();
                 $log->ua = $request->server('HTTP_USER_AGENT');
-                $log->created_at = now('+8:00');
+                $log->created_at = time();
                 $log->save();
                 return $next($request);
             }else{
@@ -91,4 +95,5 @@ class CheckAccess
             return abort(403, '你没有权限!');
         }
     }
+    
 }

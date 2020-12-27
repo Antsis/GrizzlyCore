@@ -9,8 +9,9 @@ $(function(){
             $(this).removeClass("is-invalid").addClass("is-valid").siblings(".invalid-feedback").text("")
         }
     })
-
+    
     $("#role-add").on("click", function(){
+        alert(1)
         if($("#role-name-add").val()==""){
             $("#role-name-add").removeClass("is-valid").addClass("is-invalid").siblings(".invalid-feedback").text("请输入角色名")
             return false
@@ -56,7 +57,7 @@ $(function(){
                         <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
-                  `);
+                `);
             }
         })
     })

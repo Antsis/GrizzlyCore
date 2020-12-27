@@ -8,7 +8,9 @@
     @section('meta')
 
     @show
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+    {{-- <link rel="stylesheet" href="{{ mix('css/app.css') }}"> --}}
+
+    <link rel="stylesheet" href="{{ mix('css/vendor.css') }}">
     <title>@yield('title', 'Laravel-demo')</title>
 </head>
 <body>
@@ -30,7 +32,8 @@
     @section('footer')
         @include('common._footer')
     @show
-    <script src="{{ mix('js/app.js') }}"></script>
+    {{-- <script src="{{ mix('/js/app.js') }}"></script> --}}
+    <script src="{{ mix('/js/vendor.js') }}"></script>
     @section('js')
 
     @show

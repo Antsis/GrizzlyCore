@@ -48,5 +48,6 @@
 @endsection
 
 @section('js')
-    <!-- <script src="{{ asset('static/js/profile.js') }}"></script> -->
+    {{-- <script src="{{ asset('static/js/profile.js') }}"></script> --}}
+    <script src="{{ mix('/js/profile.js') }}"></script>
 @endsection
