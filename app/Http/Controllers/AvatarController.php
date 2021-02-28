@@ -31,7 +31,7 @@ class AvatarController extends Controller
 
 
         // 头像类型处理
-        if($ext == 'image/jpeg'){
+        if($ext == 'image/jpeg' || $ext == 'image/jpg' ){
             $im = imagecreatefromjpeg($path);
         }else if($ext == 'image/png'){
             $im = imagecreatefrompng($path);
@@ -60,6 +60,8 @@ class AvatarController extends Controller
         if(is_file($path)){
             return new \SplFileInfo($path);
         }
+
+        
 
         throw new FileNotFoundException("File does not exist at path {$path}.");
     }

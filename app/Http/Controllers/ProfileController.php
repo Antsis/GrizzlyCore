@@ -6,18 +6,14 @@ use App\Mail\AccountSecurity;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Auth\EloquentUserProvider;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Redis;
 use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
-    /**
-     * an Array 
-     *
-     * @var [Array]
-     */
-    protected $user_info;
+    
 
     /**
      * a User Model
@@ -34,6 +30,8 @@ class ProfileController extends Controller
     {
         $this->user = User::find(session()->get('logined')['id']);
         session()->put('logined', $this->user->toArray());
+        
+
     }
 
 
@@ -50,6 +48,7 @@ class ProfileController extends Controller
     public function index(Request $request)
     {
         $this->updateSession();
+
         switch ($request->method()) {
             case 'GET':
                 if($this->user->birthday==null){
@@ -147,8 +146,9 @@ class ProfileController extends Controller
                 $file = $request->file('image');
                 if($file->isValid()){
                     $ext = $file->extension();
-                    if($ext == "jpeg" || $ext == "png"){
+                    if($ext == "jpeg" || $ext == "png" || $ext == 'jpg'){
                         $md5 = md5($this->user['username']);
+                        //  TODO : 保存图片的分辨减小, 而且导航栏使用静态图片
                         $file->storeAs('avatar', "$md5.jpg");
                         // 将头像url保存到数据库
                         $this->user->avatar_url = env('APP_URL').'/avatar/'. $md5;
