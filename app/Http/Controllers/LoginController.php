@@ -15,42 +15,47 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-          
+
     /**
      * 登录请求
      */
     public function login(Request $request)
     {
-        if(!$request->has('login_i')){
-            return response()->json(["error"=>['code'=>'001','message'=>'login_i is empty!']]);
-        }
-        if(!$request->has('password')){
-            return response()->json(["error"=>['code'=>'002','message'=>'password is empty!']]);
-        }
+        // 重写验证
+        // if(!$request->has('login_i')){
+        //     return response()->json(["error"=>['code'=>'001','message'=>'login_i is empty!']]);
+        // }
+        // if(!$request->has('password')){
+        //     return response()->json(["error"=>['code'=>'002','message'=>'password is empty!']]);
+        // }
         $login = $request->input('login_i');
         $passwd = $request->input('password');
 
-        try{
-        $web = User::where('phone', $login)
-                ->orWhere('email', $login)
-                ->orWhere('username', $login)
-                ->first();
-        if(empty($web)){
-            return response()->json(["error"=>['code'=>'003','message'=>'User not found!']]);
-        }
+        // try{
+        //     $web = User::where('phone', $login)
+        //             ->orWhere('email', $login)
+        //             ->orWhere('username', $login)
+        //             ->first();
+        //     if(empty($web)){
+        //         return response()->json(["error"=>['code'=>'003','message'=>'User not found!']]);
+        //     }
 
-    
-        $array = $web->toArray();
-        }catch(Exception $e){
-            return response()->json(["error"=>['code'=>'004','message'=>'Database exception!']]);
-        }
+
+        //     $array = $web->toArray();
+        // }catch(Exception $e){
+        //     return response()->json(["error"=>['code'=>'004','message'=>'Database exception!']]);
+        // }
+        $data = 
+
+
+
         if($array['phone']==$login&&password_verify($passwd, $array['password'])||$array['email']==$login&&password_verify($passwd, $array['password'])||$array['username']==$login&&password_verify($passwd, $array['password'])){
             session()->put('logined', $array);
             if($request->input('login_state')==1){
                 $code = $this->code();
-                Cookie::queue('last_login_username', $login, 10080);
-                Cookie::queue("login_token", $code, 10080);
-                Cookie::queue("loginstate", 1, 10080);
+                // Cookie::queue('last_login_username', $login, 10080);
+                // Cookie::queue("login_token", $code, 10080);
+                // Cookie::queue("loginstate", 1, 10080);
                 try{
                     $web = User::find($array['id']);
                     $web->login_token = $code;
@@ -59,7 +64,8 @@ class LoginController extends Controller
                     return response()->json(["error"=>['code'=>'005','Database exception!']]);
                 }
             }
-            return response()->json(["success"=>['code'=>'101','message'=>'Success login!', 'avatar_url'=>$array['avatar_url']]]);
+
+            return $this->success();
         }else{
             return response()->json(["error"=>['code'=>'006','message'=>'user or password is error!']]);
         }
@@ -109,7 +115,7 @@ class LoginController extends Controller
 
     /**
      * qq登录请求
-     * 
+     *
      */
     public function qqLogin()
     {
@@ -172,12 +178,12 @@ class LoginController extends Controller
         } catch (\Throwable $th) {
             echo '<script>window.close()</script>';
         }
-        
+
     }
 
     /**
      * 生成一个随机码
-     * 
+     *
      * @return string 随机码
      */
     public function code()

@@ -336,6 +336,6 @@ class UserController extends Controller
         if($user->save()){
             return $user->id;
         }
-        return 0;        
+        return 0;
     }
 }

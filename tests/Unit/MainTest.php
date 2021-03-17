@@ -19,15 +19,10 @@ class MainTest extends TestCase
      */
     public function testMain(Request $request)
     {
-        
-        $log = new AccessLog();
-                $log->uid = 1;
-                $log->target_url = $request->fullUrl();
-                $log->http_type = $request->method();
-                $log->ip = $request->ip();
-                $log->ua = $request->server('HTTP_USER_AGENT');
-                $log->created_at = now('+8:00');
-                $log->save();
+
+        // dd(ip2long($_SERVER['REMOTE_ADDR']));
+
+
     }
 
 
