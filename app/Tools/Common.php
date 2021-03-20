@@ -3,16 +3,13 @@
  * 公共函数
  */
 
-namespace App\Http\Controllers;
-
-
-use Illuminate\Support\Str;
+namespace App\Http\Tools;
 
 class Common
 {
     /**
      * 生成随机码
-     * 
+     *
      * @param integer $length=16 随机码的长度
      * @param bool $strup=true 字母是否大写
      */
@@ -37,8 +34,8 @@ class Common
             $array[] = $_list->$str;
         }
         return $array;
-        
-        
+
+
     }
-    
+
 }
