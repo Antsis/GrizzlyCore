@@ -8,18 +8,14 @@ use AlibabaCloud\Client\Exception\ServerException;
 
 class SendSms
 {
-    public function sendCodeSms($phone)
+    /**
+     * 
+     * @param string $phone
+     * @param string $code
+     */
+    public static function sendCodeSms(String $phone, String $code)
     {
-        $smsCode = "";
-        for($i=0;$i<6;$i++){
-            $smsCode .= mt_rand(0, 9);
-        }
-
-        
-        
-        session()->put('sms_code', $smsCode);
-
-
+        // session()->put('sms_code', $smsCode);
         AlibabaCloud::accessKeyClient('LTAI4Fvn8AzD6hjEzDUhePaR', 'V8h6qaXdndO0gGxyfqCVivDARo61kr')
                         ->regionId('cn-hangzhou')
                         ->asDefaultClient();

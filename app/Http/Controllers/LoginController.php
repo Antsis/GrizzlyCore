@@ -45,7 +45,7 @@ class LoginController extends Controller
         // }catch(Exception $e){
         //     return response()->json(["error"=>['code'=>'004','message'=>'Database exception!']]);
         // }
-        $data = DB::table('users')->selcet('')
+        // $data = DB::table('users')->selcet('');
 
 
 

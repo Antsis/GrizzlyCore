@@ -1,12 +1,6 @@
 <?php
 
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\AvatarController;
-use App\Http\Controllers\IndexController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\UserController;
-use Tests\Unit\MainTest;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,4 +20,4 @@ Route::get('/', function(){
     return view('welcome');
 });
 
-Route::post('', );
+Route::post('register', [RegisterController::class, 'register']);
