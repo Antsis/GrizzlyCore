@@ -1,9 +1,7 @@
 <?php
 namespace App\Services;
 
-use App\Http\Tools\Common;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Request;
 
 class RegisterService
 {
@@ -14,7 +12,7 @@ class RegisterService
 	 * @param string $password
 	 * @return bool
 	 */
-	public static function phoneInsert(String $phone, String $password)
+	public static function phoneInsert(string $phone, string $password)
 	{
 		$time = date('Y-m-d H:i:s');
 		$password = bcrypt($password);
@@ -39,7 +37,7 @@ class RegisterService
 	 * @param string $password
 	 * @return object
 	 */
-	public static function emailInsert(String $email, String $password): array
+	public static function emailInsert(string $email, string $password)
 	{
 		$time = date('Y-m-d H:i:s');
 		$password = bcrypt($password);

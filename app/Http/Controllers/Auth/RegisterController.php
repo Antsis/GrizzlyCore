@@ -38,7 +38,7 @@ class RegisterController extends Controller
         }
         $result = RegisterService::emailInsert($request->input('email'), $passwd);
 
-        dd()
+        dd();
         if ($result) {
             return $this->success($result);
         }else {
