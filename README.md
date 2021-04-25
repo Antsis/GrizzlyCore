@@ -1,5 +1,3 @@
-# [Project web address](http://gc.wcz0.net)
+# [Project web address](http://gc.wcz.one:88)
 
-This is an mc solution, including web application and Minecraft plugin.
-
-Web application use Laravel framework
+This is the front-end code of the GrizzlyCore project
