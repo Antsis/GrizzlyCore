@@ -26,12 +26,12 @@ class SendEmail
             $mail->CharSet='UTF-8';
             $mail->SMTPDebug = 0;                      // Enable verbose debug output
             $mail->isSMTP();                                            // Send using SMTP
-            $mail->Host       = 'smtp.mxhichina.com';                    // Set the SMTP server to send through
+            $mail->Host       = env('MAIL_HOST');                    // Set the SMTP server to send through
             $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
-            $mail->Username   = 'notice@wcz.one';                       // SMTP username
-            $mail->Password   = '7076Zheshiwcz';                        // SMTP password
+            $mail->Username   = env('MAIL_USERNAME');                       // SMTP username
+            $mail->Password   = env('MAIL_PASSWORD');                        // SMTP password
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;         // Enable TLS encryption; `PHPMailer::ENCRYPTION_SMTPS` encouraged
-            $mail->Port       = 25;                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
+            $mail->Port       = env('MAIL_PORT');                                    // TCP port to connect to, use 465 for `PHPMailer::ENCRYPTION_SMTPS` above
 
             //Recipients
             $mail->setFrom('notice@wcz.one', 'GrizzlyCraft');

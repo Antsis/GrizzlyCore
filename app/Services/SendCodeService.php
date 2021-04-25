@@ -38,7 +38,7 @@ class SendCodeService
     public static function sendCode(string $phone, string $code)
     {
         // session()->put('sms_code', $smsCode);
-        AlibabaCloud::accessKeyClient('LTAI4Fvn8AzD6hjEzDUhePaR', 'V8h6qaXdndO0gGxyfqCVivDARo61kr')
+        AlibabaCloud::accessKeyClient(env('ALIYUN_SMS_KEY'), env('ALIYUN_SMS_VALUE'))
                         ->regionId('cn-hangzhou')
                         ->asDefaultClient();
         try {
