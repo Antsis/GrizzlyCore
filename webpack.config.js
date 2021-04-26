@@ -1,3 +1,7 @@
+const path = require('path')
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+
+// TODO:webpack配置还没完成
 const config = {
   target: "web",
   entry: path.join(__dirname, "src/index.js"),
@@ -13,4 +17,10 @@ const config = {
       },
     ],
   },
-};
+  plugins: [
+    new VueLoaderPlugin()
+  ]
+}
+
+
+module.exports = config
