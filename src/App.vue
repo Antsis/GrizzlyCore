@@ -1,17 +1,12 @@
 <template>
-    
+  <h1>Hello World</h1>
 </template>
 
 <script>
-import { defineComponent } from '@vue/composition-api'
-
-export default defineComponent({
-    setup() {
-        
-    },
-})
+export default {
+  components: {},
+};
 </script>
 
 <style lang="sass" scoped>
-
 </style>

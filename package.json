@@ -3,13 +3,26 @@
   "version": "1.0.0",
   "description": "This is the front-end code of the GrizzlyCore project",
   "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "dev": "webpack-dev-server --config webpack.config.js"
+  },
   "repository": "https://github.com/wcz0/GrizzlyCore-web.git",
   "author": "wcz0 <wcz0@outlook.com>",
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "css-loader": "^5.2.4",
+    "eslint": "^7.25.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "lodash": "^4.17.21",
+    "sass-loader": "^11.0.1",
     "vue": "^2.6.12",
+    "vue-loader": "^15.9.6",
     "vue-route": "^1.5.1",
-    "vuex": "^3.6.2"
+    "vuex": "^3.6.2",
+    "webpack": "^5.35.1",
+    "webpack-cli": "^4.6.0",
+    "webpack-dev-server": "^3.11.2"
   }
 }
