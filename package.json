@@ -1,0 +1,10 @@
+{
+  "name": "GrizzlyCore-web",
+  "version": "1.0.0",
+  "description": "This is the front-end code of the GrizzlyCore project",
+  "main": "index.js",
+  "repository": "https://github.com/wcz0/GrizzlyCore-web.git",
+  "author": "wcz0 <wcz0@outlook.com>",
+  "license": "MIT",
+  "private": true
+}
