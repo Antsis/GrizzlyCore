@@ -1,13 +1,24 @@
-# [GrizzlyCore-web](http://mc.wcz.one:88)
+# a
 
-This is the front-end code of the GrizzlyCore project
+## Project setup
+```
+yarn install
+```
 
-test
+### Compiles and hot-reloads for development
+```
+yarn serve
+```
 
-技术栈有
+### Compiles and minifies for production
+```
+yarn build
+```
 
-Vue
+### Lints and fixes files
+```
+yarn lint
+```
 
-Ant Design
-
-Tailwindcss
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
