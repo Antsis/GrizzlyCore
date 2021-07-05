@@ -4,4 +4,10 @@ This is the front-end code of the GrizzlyCore project
 
 test
 
-asdasasdasdas
+技术栈有
+
+Vue
+
+Ant Design
+
+Tailwindcss
